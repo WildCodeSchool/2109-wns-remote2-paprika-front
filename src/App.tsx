@@ -1,10 +1,12 @@
 import React from 'react'
 import logoPaprika from './assets/pictures/paprika1.png'
 import './assets/App.css'
+import Nav from './components/Nav/Nav'
 const red = { color: 'red' }
 function App() {
     return (
         <div className="App">
+            <Nav />
             <header className="App-header">
                 <img src={logoPaprika} className="App-logo" alt="logo" />
                 <h1 style={red}>Projet paprika</h1>
