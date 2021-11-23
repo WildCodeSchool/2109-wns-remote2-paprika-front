@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+body {
+  margin: 0.4rem auto;
+  background-color: #fff;
+  font-family: "Nunito", sans-serif;
+  position: static; }
+
+li {
+  list-style-type: none; }
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer; }
+
+a:visited {
+  color: black; }
+
+.home,
+.calendar,
+.documentation,
+.listproject,
+.notifications,
+.settings,
+.tasksproject {
+  position: relative; }
+  .home h1,
+  .calendar h1,
+  .documentation h1,
+  .listproject h1,
+  .notifications h1,
+  .settings h1,
+  .tasksproject h1 {
+    color: blue;
+    display: block;
+    width: 30%;
+    margin: 5% auto 0 auto;
+    font-size: 2.5vw; }
+  .home .wrapper-content,
+  .calendar .wrapper-content,
+  .documentation .wrapper-content,
+  .listproject .wrapper-content,
+  .notifications .wrapper-content,
+  .settings .wrapper-content,
+  .tasksproject .wrapper-content {
+    display: block;
+    position: relative;
+    width: 80%;
+    margin: 2rem 2rem 0 10rem;
+    padding: 2rem 2rem;
+    border: 1px solid red;
+    font-size: 2rem; }
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 20px 0;
+  position: absolute; }
+  .navigation img {
+    width: 20px;
+    height: 20px; }
+  .navigation a {
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    position: relative; }
+  .navigation :hover {
+    color: red; }
+  .navigation .nav-active::after {
+    content: '';
+    width: 85%;
+    height: 5px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 1px;
+    left: 1%; }
+
+.home {
+  position: relative;
+  color: red; }
+  .home h1 {
+    color: blue;
+    display: block;
+    margin: 5% auto 0 auto; }
+
+.notfound h1 {
+  color: blue;
+  display: block;
+  width: 30%;
+  margin: 5% auto 0 auto; }
+
+.notfound p {
+  font-size: 2rem;
+  margin-left: 10%;
+  margin-top: 2em;
+  color: #3626ca; }
