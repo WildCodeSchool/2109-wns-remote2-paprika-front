@@ -23,11 +23,7 @@ function Copyright(props: any) {
             {...props}
         >
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
+            Paprika Website created with Love
         </Typography>
     )
 }
@@ -57,10 +53,13 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar></Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
+                    <img
+                        src="./pictures/Logo.svg"
+                        alt="logo"
+                        width="300"
+                        height="300"
+                    />
+
                     <Box
                         component="form"
                         onSubmit={handleSubmit}
