@@ -7,23 +7,23 @@ const Navigation = () => {
             <NavLink exact to="/" activeClassName="nav-active">
                 <img src="./pictures/paprika2.png" alt="logo"/>Accueil
             </NavLink>
-            <NavLink exact to="/calendar" activeClassName="nav-active">
-                <img src="./pictures/paprika2.png" alt="logo"/>Calendar
+            <NavLink exact to="/notifications" activeClassName="nav-active">
+                <img src="./pictures/hpsound.png" alt="logo"/>Notifications
             </NavLink>
             <NavLink exact to="/listproject" activeClassName="nav-active">
-                <img src="./pictures/paprika2.png" alt="logo"/>All projects
-            </NavLink>
-            <NavLink exact to="/settings" activeClassName="nav-active">
-                <img src="./pictures/paprika2.png" alt="logo"/>Settings
+                <img src="./pictures/salade.png" alt="logo"/>Tout les projets
             </NavLink>
             <NavLink exact to="tasksproject" activeClassName="nav-active">
-                <img src="./pictures/paprika2.png" alt="logo"/>All tasks 
+                <img src="./pictures/oignon.png" alt="logo"/>Tâches projets
             </NavLink>
-            <NavLink exact to="/notifications" activeClassName="nav-active">
-                <img src="./pictures/paprika2.png" alt="logo"/>Notifications
+            <NavLink exact to="/calendar" activeClassName="nav-active">
+                <img src="./pictures/tomate.png" alt="logo"/>Calendrier
             </NavLink>
             <NavLink exact to="/documentation" activeClassName="nav-active">
-                <img src="./pictures/paprika2.png" alt="logo"/>Documentation
+                <img src="./pictures/piment.png" alt="logo"/>Documentation
+            </NavLink>
+            <NavLink exact to="/settings" activeClassName="nav-active">
+                <img src="./pictures/gingembre.png" alt="logo"/>Options
             </NavLink>
         </div>
     )
