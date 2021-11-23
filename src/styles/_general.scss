@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;700&display=swap');
+
+$font-1: "Nunito", sans-serif;
+
+$color-1: #fff;
+$color-2: rgb(201, 191, 191);
+$color-3: rgb(0, 0, 0);
+$color-4: rgb(54, 38, 202);
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0.4rem auto;
+    background-color: $color-2;
+    font-family: $font-1;
+    position: static;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: $color-3;
+    cursor: pointer;
+}
+
+a:visited {
+    color: $color-3;
+}
+
+.home,
+.calendar,
+.documentation,
+.listproject,
+.notifications,
+.settings,
+.tasksproject 
+{
+    position: relative;
+    
+    h1 {
+        color: blue;
+        display: block;
+        width: 30%;
+        margin: 5% auto 0 auto;
+        font-size: 2.5vw;
+    }
+
+    .wrapper-content{
+        display: block;
+        position: relative;
+        width: 80%;
+        margin: 2rem 2rem 0 10rem;
+        padding: 2rem 2rem;
+        border: 1px solid red;
+        font-size: 2rem;
+    }
+}
