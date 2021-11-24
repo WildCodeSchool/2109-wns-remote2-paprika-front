@@ -46,15 +46,14 @@ a:visited {
     display: block;
     width: 30%;
     margin: 5% auto 0 auto;
-    font-size: 2.5vw;
-}
-.home .wrapper-content,
-.calendar .wrapper-content,
-.documentation .wrapper-content,
-.listproject .wrapper-content,
-.notifications .wrapper-content,
-.settings .wrapper-content,
-.tasksproject .wrapper-content {
+    font-size: clamp(2.5vw, 3vw, 16px); }
+  .home .wrapper-content,
+  .calendar .wrapper-content,
+  .documentation .wrapper-content,
+  .listproject .wrapper-content,
+  .notifications .wrapper-content,
+  .settings .wrapper-content,
+  .tasksproject .wrapper-content {
     display: block;
     position: relative;
     width: 80%;

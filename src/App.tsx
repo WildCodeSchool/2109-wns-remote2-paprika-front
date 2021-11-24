@@ -13,6 +13,7 @@ import FirstConnection from './pages/FirstConnection'
 
 import '@mui/material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import '@mui/material'
 
 function App() {
     return (
