@@ -6,6 +6,8 @@ $color-1: #fff;
 $color-2: rgb(201, 191, 191);
 $color-3: rgb(0, 0, 0);
 $color-4: rgb(54, 38, 202);
+$color-5: #F2F2F2;
+$color-6: #E33636;
 
 * {
     box-sizing: border-box;
@@ -42,14 +44,13 @@ a:visited {
 .settings,
 .tasksproject 
 {
-    position: relative;
-    
     h1 {
         color: blue;
         display: block;
-        width: 30%;
-        margin: 5% auto 0 auto;
-        font-size: 2.5vw;
+        font-size: clamp(20px, 2.0rem , 2vw);
+        text-align: center;
+        padding-top: 50px;
+        margin-left: 210px;
     }
 
     .wrapper-content{
@@ -60,5 +61,15 @@ a:visited {
         padding: 2rem 2rem;
         border: 1px solid red;
         font-size: 2rem;
+    }
+
+    .big-container-wrapper{
+        margin-left: 210px;
+        margin-top: 10%;
+    }
+
+    .container-wrapper{
+        position: relative;
+        margin-left: 210px;
     }
 }

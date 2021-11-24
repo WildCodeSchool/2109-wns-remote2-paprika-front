@@ -8,6 +8,7 @@ import Notifications from './pages/Notifications'
 import Settings from './pages/Settings'
 import TasksProject from './pages/TasksProject'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import '@mui/material'
 
 function App() {
     return (

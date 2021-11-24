@@ -2,8 +2,16 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 20px 0;
-    position: absolute;
+    margin: 0px 0;
+    position: fixed;
+    height: 100%;
+    background-color: $color-5;
+    border: 1px solid rgba(128, 128, 128, 0.356);
+    box-shadow: 3px 0px 6px 4px rgba(128, 128, 128, 0.356);
+
+    .username-account{
+        font-size: 18px;
+    }
 
     img {
         width: 20px;
@@ -15,10 +23,11 @@
         margin: 10px;
         padding: 10px;
         position: relative;
-    }
-
-    :hover {
-        color: red;
+        &:hover{
+            font-size: 20px;
+            color: red;
+            text-decoration: underline;
+        }
     }
 
     .nav-active {
@@ -26,10 +35,15 @@
             content: "";
             width: 85%;
             height: 5px;
-            background-color: $color-1;
+            background-color: $color-6;
             position: absolute;
             bottom: 1px;
             left: 1%;
         }
+    }
+
+    .logo-nav{
+        width: 50px;
+        height: 50px;
     }
 }
