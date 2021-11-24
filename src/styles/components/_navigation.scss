@@ -32,7 +32,7 @@
 
     .nav-active {
         &::after {
-            content: "";
+            content: '';
             width: 85%;
             height: 5px;
             background-color: $color-6;

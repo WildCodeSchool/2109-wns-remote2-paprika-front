@@ -7,12 +7,13 @@ import NotFound from './pages/NotFound'
 import Notifications from './pages/Notifications'
 import Settings from './pages/Settings'
 import TasksProject from './pages/TasksProject'
+import Login from './pages/Login'
+import '@mui/material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import '@mui/material'
 
 function App() {
     return (
-
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Home} />
@@ -22,10 +23,10 @@ function App() {
                 <Route path="/tasksproject" exact component={TasksProject} />
                 <Route path="/notifications" exact component={Notifications} />
                 <Route path="/documentation" exact component={Documentation} />
+                <Route path="/login" exact component={Login} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
-
     )
 }
 
