@@ -36,6 +36,14 @@ const Navigation = () => {
             <NavLink exact to="/settings" activeClassName="nav-active">
                 <img className="logo-nav" src="./pictures/gingembre.png" alt="logo"/>Options
             </NavLink>
+            <NavLink exact to="/register" activeClassName="nav-active">
+                <img src="./pictures/gingembre.png" alt="logo" />
+                Register
+            </NavLink>
+            <NavLink exact to="/firstConnection" activeClassName="nav-active">
+                <img src="./pictures/gingembre.png" alt="logo" />
+                First Connection
+            </NavLink>
         </div>
     )
 }
