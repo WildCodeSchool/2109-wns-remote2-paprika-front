@@ -9,6 +9,7 @@ import Settings from './pages/Settings'
 import TasksProject from './pages/TasksProject'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import FirstConnection from './pages/FirstConnection'
 
 import '@mui/material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -26,6 +27,11 @@ function App() {
                 <Route path="/documentation" exact component={Documentation} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
+                <Route
+                    path="/firstConnection"
+                    exact
+                    component={FirstConnection}
+                />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>

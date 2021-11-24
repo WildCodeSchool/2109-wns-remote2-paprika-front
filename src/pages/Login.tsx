@@ -52,6 +52,7 @@ export default function SignIn() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        paddingTop: 8,
                     }}
                 >
                     <img

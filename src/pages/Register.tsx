@@ -50,6 +50,7 @@ export default function Register() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        paddingTop: 8,
                     }}
                 >
                     <img
