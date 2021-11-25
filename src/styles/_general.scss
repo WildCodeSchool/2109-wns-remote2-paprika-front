@@ -8,6 +8,8 @@ $color-3: rgb(0, 0, 0);
 $color-4: rgb(54, 38, 202);
 $color-5: #F2F2F2;
 $color-6: #E33636;
+$color-7: #46B458;
+$color-8: #2D9BB3;
 
 * {
     box-sizing: border-box;
@@ -44,8 +46,8 @@ a:visited {
 .settings,
 .tasksproject 
 {
-    h1 {
-        color: blue;
+    & h1 {
+        color: $color-3;
         display: block;
         font-size: clamp(20px, 2.0rem , 2vw);
         text-align: center;
@@ -59,17 +61,34 @@ a:visited {
         width: 80%;
         margin: 2rem 2rem 0 10rem;
         padding: 2rem 2rem;
-        border: 1px solid red;
+        border: 1px solid $color-6;
         font-size: 2rem;
     }
 
-    .big-container-wrapper{
+    .big-container-wrapper {
         margin-left: 210px;
         margin-top: 10%;
     }
 
-    .container-wrapper{
+    .container-wrapper {
         position: relative;
         margin-left: 210px;
     }
+}
+
+.round {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.round-red {
+    background-color: $color-6;
+}
+.round-green {
+    background-color: $color-7;
+}
+.round-blue {
+    background-color: $color-8;
 }
