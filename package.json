@@ -7,7 +7,6 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.0",
-    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
@@ -25,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build-react": "react-scripts build",
-    "test-react": "react-scripts test",
+    "test": "react-scripts test",
     "eject-react": "react-scripts eject",
     "build:css": "node-sass src/ -o src/ ",
     "watch:css": "npm run build:css && node-sass src/ -o src/ -w -r",
@@ -45,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.1",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "eslint": "^7.32.0",
