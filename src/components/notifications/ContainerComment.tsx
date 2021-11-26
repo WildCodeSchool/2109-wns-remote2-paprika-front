@@ -35,7 +35,7 @@ const ContainerComment = () => {
             }}
             style={{ width: '100%' }}
         >
-            <Item style={{ paddingLeft: 210 , width: 'Inherit'}}>
+            <Item className="item-list" style={{ paddingLeft: 210 , width: 'Inherit'}}>
                 <h2>Project | Tasks</h2>
                 <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                     <Item sx={{display: 'inline-block'}}><span className="round round-red"></span> </Item>
@@ -43,9 +43,20 @@ const ContainerComment = () => {
                     <Item sx={{display: 'inline-block', marginLeft: 'auto'}}>17 / 12 / 2021</Item>
                 </Box>
                     <p>Le deploiement a foiré.. Pepperoni a vraiment fait d’la merde, @JalapenosGarcia, il faudra it que tu t’en occupe, car le client est vénère de ouf...
-J’ai aucune nouvelle de lui, depuis hier ! C’est vraiment un branque ce type !</p>
+                    J’ai aucune nouvelle de lui, depuis hier ! C’est vraiment un branque ce type !</p>
+                    <Box sx={{ display: 'flex', flexDirection: 'row'}} >
+                        <Item sx={{display: 'inline-block'}}><span className="round round-red"></span> </Item>
+                        <Item sx={{display: 'inline-block'}}><p>Gimgembre change the status to prioritary</p></Item>
+                        <Item sx={{display: 'inline-block', marginLeft: 'auto'}}>18 / 12 / 2021</Item>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'row'}} >
+                        <Item sx={{display: 'inline-block'}}><span className="round round-green"></span> </Item>
+                        <Item sx={{display: 'inline-block'}}><p>Tabascco add enclosed</p></Item>
+                        <Item sx={{display: 'inline-block', marginLeft: 'auto'}}>18 / 12 / 2021</Item>
+                    </Box>
+
             </Item> 
-            <Item style={{ paddingLeft: 210, width: 'Inherit' }}>
+            <Item className="item-list" style={{ paddingLeft: 210, width: 'Inherit' }}>
             <h2>Project | Tasks</h2>
                 <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                     <Item sx={{display: 'inline-block'}}><span className="round round-blue"></span> </Item>
@@ -53,7 +64,7 @@ J’ai aucune nouvelle de lui, depuis hier ! C’est vraiment un branque ce type
                     <Item sx={{display: 'inline-block', marginLeft: 'auto'}}>17 / 12 / 2021</Item>
                 </Box>
             </Item>
-            <Item style={{ paddingLeft: 210, width: 'Inherit' }}>
+            <Item className="item-list" style={{ paddingLeft: 210, width: 'Inherit' }}>
             <h2>Project | Tasks</h2>
                 <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                     <Item sx={{display: 'inline-block'}}><span className="round round-green"></span> </Item>
