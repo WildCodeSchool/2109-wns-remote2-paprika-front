@@ -4,12 +4,16 @@
         display: block;
         width: 30%;
         margin: 5% auto 0 auto;
+        text-align: center;
     }
 
     p {
         font-size: 2rem;
         margin-left: 10%;
         margin-top: 2em;
+        margin-right: 10%;
+        margin-left: 10%;
         color: $color-4;
+        text-align: center;
     }
 }
