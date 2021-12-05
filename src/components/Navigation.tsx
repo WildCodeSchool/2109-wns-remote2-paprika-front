@@ -12,10 +12,10 @@ const Navigation = () => {
                     <p style={{ display: "block"}}>welcome <br /> Name</p>
                 </Box>
                 <Box>
-                    <img className="logo-nav" src="./pictures/arrowL.png" alt="logo"/>
+                    <img className="logo-nav arrow" src="./pictures/arrowL.png" alt="logo"/>
                 </Box>
             </Box>
-            <NavLink exact to="/" activeClassName="nav-active">
+            <NavLink exact to="/home" activeClassName="nav-active">
                 <img className="logo-nav" src="./pictures/paprika2.png" alt="logo"/>Accueil
             </NavLink>
             <NavLink exact to="/notifications" activeClassName="nav-active">

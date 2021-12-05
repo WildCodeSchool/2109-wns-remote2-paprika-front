@@ -10,6 +10,7 @@ import TasksProject from './pages/TasksProject'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import FirstConnection from './pages/FirstConnection'
+import Default from './pages/Default'
 
 import '@mui/material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -19,7 +20,8 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={Default} />
+                <Route path="/home" exact component={Home} />
                 <Route path="/calendar" exact component={Calendar} />
                 <Route path="/listproject" exact component={ListProject} />
                 <Route path="/settings" exact component={Settings} />
@@ -28,11 +30,7 @@ function App() {
                 <Route path="/documentation" exact component={Documentation} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
-                <Route
-                    path="/firstConnection"
-                    exact
-                    component={FirstConnection}
-                />
+                <Route path="/firstConnection" exact component={FirstConnection} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
