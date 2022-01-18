@@ -24,6 +24,11 @@ body {
     position: static;
 }
 
+.wrapper {
+    width: 80vw;
+    margin: 0 auto;
+}
+
 li {
     list-style-type: none;
 }
@@ -44,7 +49,8 @@ a:visited {
 .listproject,
 .notifications,
 .settings,
-.tasksproject 
+.tasksproject,
+.default
 {
     & h1 {
         color: $color-3;
@@ -91,4 +97,34 @@ a:visited {
 }
 .round-blue {
     background-color: $color-8;
+}
+
+.btn-redirect {
+    margin: 10px 10px;
+    padding: 5px 10px;
+    background-color: red;
+}
+
+.myButton {
+	box-shadow: 3px 3px 6px 1px $color-5;
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	background-color:#ededed;
+	border-radius:9px;
+	border:2px solid $color-4;
+	display:inline-block;
+	cursor:pointer;
+	color:$color-4;
+	font-family:Arial;
+	font-size:24px;
+	padding:12px 37px;
+	text-decoration:none;
+	text-shadow:-2px 2px 0px $color-1;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+	background-color:$color-5;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
 }
