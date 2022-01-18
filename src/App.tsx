@@ -17,6 +17,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import '@mui/material'
 
 function App() {
+    const [isLogged , setIsLogged] = React.useState("");
     return (
         <BrowserRouter>
             <Switch>
