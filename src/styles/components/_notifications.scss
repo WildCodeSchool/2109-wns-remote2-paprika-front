@@ -1,0 +1,31 @@
+.notifications{
+    h2 {
+        text-align: left;
+    }
+    .big-container-wrapper {
+        &.big-container-notification{
+            padding: 20px 20px 20px 40px;
+            margin-top: 5%;
+            background-color: $color-5;
+            p {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                width: 500px;
+            }
+        }
+    }
+    .item-list{
+        padding: 10px 20px 10px 20px;
+        background-color: $color-5;
+        margin: 10px 10px 10px 10px;
+        border-radius: 2%;
+        box-shadow: 3px 0px 6px 4px rgba(0,0,0,0.75);
+        &:hover{
+            box-shadow: 3px 0px 6px 4px rgba(44, 10, 10, 0.75);
+            h2{
+                color: rgba(214, 13, 13, 0.719);
+            }
+        }
+    }
+}

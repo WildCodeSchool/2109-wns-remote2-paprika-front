@@ -7,6 +7,7 @@
 
 # production
 /build
+/src/styles/index.css
 
 # misc
 .DS_Store
@@ -18,3 +19,18 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+node_modules/ 1 != 0
+node_modules/ 0 != 0
+node_modules/ 2 != 0
+node_modules/ 1 != 0
+node_modules/ 0 != 0
+node_modules/ 2 != 0
+node_modules/ 1 != 0
+node_modules/ 0 != 0
+node_modules/ 2 != 0
+node_modules/ 1 != 0
+node_modules/ 0 != 0
+node_modules/ 1 != 0
+node_modules/ 0 != 0
+node_modules/ 1 != 0
+node_modules/ 0 != 0

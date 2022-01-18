@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.0",
+    "@mui/material": "^5.2.0",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
-    "@types/node-sass": "^4.11.2",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.3.2",
@@ -22,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build-react": "react-scripts build",
-    "test-react": "react-scripts test",
+    "test": "react-scripts test",
     "eject-react": "react-scripts eject",
     "build:css": "node-sass src/ -o src/ ",
     "watch:css": "npm run build:css && node-sass src/ -o src/ -w -r",
@@ -42,11 +44,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.1",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "eslint": "^7.32.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-react": "^7.26.1",
+    "node-sass": "^6.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1"
   }
