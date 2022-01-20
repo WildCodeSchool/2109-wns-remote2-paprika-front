@@ -30,6 +30,6 @@ jobs:
           if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file (.DS_Store) found ! Please, ignore in .gitignore"; exit 2; fi
           if [ $(find ./ -name yarn.lock) ]; then echo "Don't use yarn in this project ! Please, remove it"; exit 2; fi
 
-      - name: Node install
-        run: npm install
+      # - name: Node install
+      #   run: npm install
 
