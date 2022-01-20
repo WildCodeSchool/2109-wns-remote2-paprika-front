@@ -21,7 +21,7 @@ jobs:
       - name: Check out code 
         uses: actions/checkout@v2
 
-      - name: checks_directory
+      - name: checks_directori
         run: |
           if [ -d "./node_modules" ]; then echo "Forbidden Node Modules folder (node_modules) found ! Please, ignore in .gitignore"; exit 2; fi
           if [ -d "./.idea" ]; then echo "Forbidden PHPStorm folder (.idea/) found ! Please, ignore in .gitignore"; exit 2; fi
