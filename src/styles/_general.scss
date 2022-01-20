@@ -119,6 +119,10 @@ a:visited {
 	padding:12px 37px;
 	text-decoration:none;
 	text-shadow:-2px 2px 0px $color-1;
+    
+    &.btnHome {
+        border: none;
+    }
 }
 .myButton:hover {
 	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);

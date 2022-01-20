@@ -27,32 +27,32 @@ const Navigation = () => {
                     <img className="logo-nav arrow" src={arrowL} alt="logo"/>
                 </Box>
             </Box>
-            <NavLink exact to="/home" activeClassName="nav-active">
+            <NavLink to="/home" activeClassName="nav-active">
                 <img className="logo-nav" src={paprika2} alt="logo"/>Accueil
             </NavLink>
-            <NavLink exact to="/notifications" activeClassName="nav-active">
+            <NavLink to="/notifications" activeClassName="nav-active">
                 <img className="logo-nav" src={hpsound} alt="logo"/>Notifications
             </NavLink>
-            <NavLink exact to="/listproject" activeClassName="nav-active">
+            <NavLink to="/listproject" activeClassName="nav-active">
                 <img className="logo-nav" src={salade} alt="logo"/>Tout les projets
             </NavLink>
-            <NavLink exact to="tasksproject" activeClassName="nav-active">
+            <NavLink to="tasksproject" activeClassName="nav-active">
                 <img className="logo-nav" src={oignon} alt="logo"/>Tâches projets
             </NavLink>
-            <NavLink exact to="/calendar" activeClassName="nav-active">
+            <NavLink to="/calendar" activeClassName="nav-active">
                 <img className="logo-nav" src={piment} alt="logo"/>Calendrier
             </NavLink>
-            <NavLink exact to="/documentation" activeClassName="nav-active">
+            <NavLink to="/documentation" activeClassName="nav-active">
                 <img className="logo-nav" src={piment} alt="logo"/>Documentation
             </NavLink>
-            <NavLink exact to="/settings" activeClassName="nav-active">
+            <NavLink to="/settings" activeClassName="nav-active">
                 <img className="logo-nav" src={gingembre} alt="logo"/>Options
             </NavLink>
-            <NavLink exact to="/register" activeClassName="nav-active">
+            <NavLink to="/register" activeClassName="nav-active">
                 <img src={gingembre} alt="logo" />
                 Register
             </NavLink>
-            <NavLink exact to="/firstConnection" activeClassName="nav-active">
+            <NavLink to="/firstConnection" activeClassName="nav-active">
                 <img src={gingembre} alt="logo" />
                 First Connection
             </NavLink>

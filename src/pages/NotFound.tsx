@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const NotFound = () => {
     return (
@@ -11,7 +12,9 @@ const NotFound = () => {
             </p>
             <p>For back in home
                 <div className="container-back">
-                    <a href="/">Back</a>
+                    <NavLink to="/">
+                        Back
+                    </NavLink>
                 </div>
             </p>
         </div>
