@@ -1,4 +1,6 @@
 import React from "react";
+import imgHome from "../assets/pictures/defaultPictures.jpg";
+import { NavLink } from "react-router-dom";
 
 
 const Default = () => {
@@ -6,9 +8,15 @@ const Default = () => {
         <div className="default wrapper">
             <nav className="navigation-default-page">
                 <ul className="list-navigation-default">
-                    <li className="myButton"><a href="/">Home</a></li>
-                    <li className="myButton"><a href="/firstConnection">Sign Up</a></li>
-                    <li className="myButton"><a href="/login">Sign In</a></li>
+                    <NavLink to="/" className="myButton btnHome" activeClassName="nav-active">
+                        <li>Home</li>
+                    </NavLink>
+                    <NavLink to="/firstConnection" className="myButton btnHome" activeClassName="nav-active">
+                        <li>Sign Up</li>
+                    </NavLink>
+                    <NavLink to="/login" className="myButton btnHome" activeClassName="nav-active">
+                        <li>Sign In</li>
+                    </NavLink>
                 </ul>
             </nav>
             <h1>Get the paprika software</h1>
@@ -20,7 +28,7 @@ const Default = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptatum iusto, dignissimos accusamus quam temporibus vero quas aperiam repudiandae odio porro ipsa necessitatibus aliquid facilis odit. Iure culpa quod autem.
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptatum iusto, dignissimos accusamus quam temporibus vero quas aperiam repudiandae odio porro ipsa necessitatibus aliquid facilis odit. Iure culpa quod autem.
                 </div>
-                <img className="img-default" src="./pictures/defaultPictures.jpg" alt="default pictures"></img>
+                <img className="img-default" src={imgHome} alt="default pictures"></img>
             </div>
         </div>
     )

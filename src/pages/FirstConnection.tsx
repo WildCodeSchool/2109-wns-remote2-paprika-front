@@ -15,6 +15,8 @@ import InformationsForm from '../components/FirstConnection/InformationsForm'
 import ProfilForm from '../components/FirstConnection/ProfilForm'
 import Confidential from '../components/FirstConnection/Confidential'
 
+import imgLogo from "../assets/pictures/Logo.svg";
+
 function Copyright(props: any) {
     return (
         <Typography
@@ -82,7 +84,7 @@ export default function Checkout() {
                         }}
                     >
                         <img
-                            src="./pictures/Logo.svg"
+                            src={imgLogo}
                             alt="logo"
                             width="200"
                             height="200"

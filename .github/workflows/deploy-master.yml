@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: deploy
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on: pull_request
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Check out code 
+        uses: actions/checkout@v2
+
+      - name: Checking for .DS_Store files
+        uses: Maxelweb/ds-store-patrol@v1
+
+      - name: checks_directory
+        run: |
+          if [ -d "./node_modules" ]; then echo "Forbidden Node Modules folder (node_modules) found ! Please, ignore in .gitignore"; exit 2; fi
+          if [ -d "./.idea" ]; then echo "Forbidden PHPStorm folder (.idea/) found ! Please, ignore in .gitignore"; exit 2; fi
+          if [ -d "./.vscode" ]; then echo "Forbidden VScode folder (.vscode) found ! Please, ignore in .gitignore"; exit 2; fi
+          if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file (.DS_Store) found ! Please, ignore in .gitignore"; exit 2; fi
+          if [ $(find ./ -name yarn.lock) ]; then echo "Don't use yarn in this project ! Please, remove it"; exit 2; fi
+
+      - name: Node install
+        run: npm install
+
