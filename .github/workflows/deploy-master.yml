@@ -1,12 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-name: deploy-master
+name: deploy
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on:
-  pull_request:
-    branches: [ dev ]
+on: [push, pull_request]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,6 +18,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out code 
         uses: actions/checkout@v2
+
+      - name: Checking for .DS_Store files
+        uses: Maxelweb/ds-store-patrol@v1
 
       - name: checks_directori
         run: |
