@@ -16,6 +16,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import Modal from '../components/modaux/ForgetPassword'
 
+import imgLogo from "../assets/pictures/Logo.svg";
+
 function Copyright(props: any) {
     return (
         <Typography
@@ -56,7 +58,7 @@ export default function SignIn() {
                     }}
                 >
                     <img
-                        src="./pictures/Logo.svg"
+                        src={imgLogo}
                         alt="logo"
                         width="300"
                         height="300"

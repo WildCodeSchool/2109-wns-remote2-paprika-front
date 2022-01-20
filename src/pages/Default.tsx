@@ -1,4 +1,5 @@
 import React from "react";
+import imgHome from "../assets/pictures/defaultPictures.jpg";
 
 
 const Default = () => {
@@ -20,7 +21,7 @@ const Default = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptatum iusto, dignissimos accusamus quam temporibus vero quas aperiam repudiandae odio porro ipsa necessitatibus aliquid facilis odit. Iure culpa quod autem.
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptatum iusto, dignissimos accusamus quam temporibus vero quas aperiam repudiandae odio porro ipsa necessitatibus aliquid facilis odit. Iure culpa quod autem.
                 </div>
-                <img className="img-default" src="./pictures/defaultPictures.jpg" alt="default pictures"></img>
+                <img className="img-default" src={imgHome} alt="default pictures"></img>
             </div>
         </div>
     )

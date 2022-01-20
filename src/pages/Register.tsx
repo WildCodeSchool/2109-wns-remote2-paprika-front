@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+import imgLogo from "../assets/pictures/Logo.svg";
+
 function Copyright(props: any) {
     return (
         <Typography
@@ -54,7 +56,7 @@ export default function Register() {
                     }}
                 >
                     <img
-                        src="./pictures/Logo.svg"
+                        src={imgLogo}
                         alt="logo"
                         width="300"
                         height="300"
