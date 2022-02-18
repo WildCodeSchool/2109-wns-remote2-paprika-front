@@ -192,6 +192,7 @@ export type Query = {
   getDocumentById?: Maybe<Document>;
   getProject: Project;
   getTask: Task;
+  getTaskByProject: Array<Maybe<Task>>;
   getUser: User;
 };
 
@@ -218,6 +219,11 @@ export type QueryGetProjectArgs = {
 
 export type QueryGetTaskArgs = {
   taskId: Scalars['String'];
+};
+
+
+export type QueryGetTaskByProjectArgs = {
+  projectId: Scalars['String'];
 };
 
 
@@ -333,6 +339,13 @@ export type GetTasksQueryVariables = Exact<{
 
 
 export type GetTasksQuery = { __typename?: 'Query', getTask: { __typename?: 'Task', id: string, name: string, status: Status, description: string, priority: Priority, projectId: string, timing?: string | null | undefined } };
+
+export type GetTaskByProjectQueryVariables = Exact<{
+  projectId: Scalars['String'];
+}>;
+
+
+export type GetTaskByProjectQuery = { __typename?: 'Query', getTaskByProject: Array<{ __typename?: 'Task', id: string, name: string, status: Status, description: string, priority: Priority, projectId: string, timing?: string | null | undefined } | null | undefined> };
 
 export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -585,6 +598,47 @@ export function useGetTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
 export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
 export type GetTasksQueryResult = Apollo.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
+export const GetTaskByProjectDocument = gql`
+    query GetTaskByProject($projectId: String!) {
+  getTaskByProject(projectId: $projectId) {
+    id
+    name
+    status
+    description
+    priority
+    projectId
+    timing
+  }
+}
+    `;
+
+/**
+ * __useGetTaskByProjectQuery__
+ *
+ * To run a query within a React component, call `useGetTaskByProjectQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTaskByProjectQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTaskByProjectQuery({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *   },
+ * });
+ */
+export function useGetTaskByProjectQuery(baseOptions: Apollo.QueryHookOptions<GetTaskByProjectQuery, GetTaskByProjectQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTaskByProjectQuery, GetTaskByProjectQueryVariables>(GetTaskByProjectDocument, options);
+      }
+export function useGetTaskByProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTaskByProjectQuery, GetTaskByProjectQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTaskByProjectQuery, GetTaskByProjectQueryVariables>(GetTaskByProjectDocument, options);
+        }
+export type GetTaskByProjectQueryHookResult = ReturnType<typeof useGetTaskByProjectQuery>;
+export type GetTaskByProjectLazyQueryHookResult = ReturnType<typeof useGetTaskByProjectLazyQuery>;
+export type GetTaskByProjectQueryResult = Apollo.QueryResult<GetTaskByProjectQuery, GetTaskByProjectQueryVariables>;
 export const GetAllProjectsDocument = gql`
     query GetAllProjects {
   getAllProjects {
