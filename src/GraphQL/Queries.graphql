@@ -65,8 +65,8 @@ query GetAllProjects {
     }
 }
 
-query GetProject($projectId: String!) {
-    getProject(projectId: $projectId) {
+query GetProjectById($projectId: String!) {
+    getProjectById(projectId: $projectId) {
         id
         startAt
         endAt
@@ -83,5 +83,16 @@ query GetCommentsTask($taskId: String!) {
         userId
         createdAt
         taskId
+    }
+}
+
+query GetProjectsByUser{
+    getProjectsByUser{
+        id
+        startAt
+        endAt
+        name
+        client
+        description
     }
 }
