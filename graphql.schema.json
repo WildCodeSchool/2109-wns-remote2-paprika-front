@@ -9,6 +9,49 @@
     "subscriptionType": null,
     "types": [
       {
+        "kind": "OBJECT",
+        "name": "AuthPayLoad",
+        "description": null,
+        "fields": [
+          {
+            "name": "token",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
@@ -351,84 +394,6 @@
       },
       {
         "kind": "OBJECT",
-        "name": "LoginResponse",
-        "description": null,
-        "fields": [
-          {
-            "name": "token",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "LoginUserInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "email",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "password",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "Mutation",
         "description": null,
         "fields": [
@@ -477,6 +442,51 @@
                 "name": "Document",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assignUsers",
+            "description": null,
+            "args": [
+              {
+                "name": "projectId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usersRoles",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UsersRoles",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -541,6 +551,39 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Project",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createProjectRole",
+            "description": null,
+            "args": [
+              {
+                "name": "roleName",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ProjectRole",
                 "ofType": null
               }
             },
@@ -738,14 +781,14 @@
             "description": null,
             "args": [
               {
-                "name": "loginUserInput",
+                "name": "userLoginInput",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "LoginUserInput",
+                    "name": "UserLoginInput",
                     "ofType": null
                   }
                 },
@@ -759,7 +802,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "LoginResponse",
+                "name": "AuthPayLoad",
                 "ofType": null
               }
             },
@@ -771,14 +814,14 @@
             "description": null,
             "args": [
               {
-                "name": "userInput",
+                "name": "userCreateInput",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "UserInput",
+                    "name": "UserCreateInput",
                     "ofType": null
                   }
                 },
@@ -792,7 +835,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "User",
+                "name": "AuthPayLoad",
                 "ofType": null
               }
             },
@@ -1158,6 +1201,49 @@
       },
       {
         "kind": "OBJECT",
+        "name": "ProjectRole",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Query",
         "description": null,
         "fields": [
@@ -1337,7 +1423,7 @@
             "deprecationReason": null
           },
           {
-            "name": "getProject",
+            "name": "getProjectById",
             "description": null,
             "args": [
               {
@@ -1364,6 +1450,46 @@
                 "kind": "OBJECT",
                 "name": "Project",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getProjectRoles",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProjectRole",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getProjectsByUser",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Project",
+                  "ofType": null
+                }
               }
             },
             "isDeprecated": false,
@@ -1960,7 +2086,7 @@
       {
         "kind": "SCALAR",
         "name": "Upload",
-        "description": null,
+        "description": "The `Upload` scalar type represents a file upload.",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2037,6 +2163,22 @@
             "deprecationReason": null
           },
           {
+            "name": "password",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "role",
             "description": null,
             "args": [],
@@ -2056,7 +2198,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserInput",
+        "name": "UserCreateInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -2110,6 +2252,104 @@
           },
           {
             "name": "password",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "role",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "RoleSite",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UserLoginInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "email",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "password",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UsersRoles",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "roleId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "userId",
             "description": null,
             "type": {
               "kind": "NON_NULL",

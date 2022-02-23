@@ -15,3 +15,16 @@ mutation updateProject($projectId: String!, $updateProjectInput: UpdateProjectIn
         description
     }
 }
+
+mutation login($userLoginInput: UserLoginInput!) {
+  login(userLoginInput: $userLoginInput) {
+    token
+    user {
+        id
+        email
+        lastName
+        firstName
+        role
+    }
+  }
+}
