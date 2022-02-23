@@ -1,5 +1,3 @@
-import Navigation from '../components/Navigation'
-
 import * as React from 'react'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -15,6 +13,7 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import imgLogo from "../assets/pictures/Logo.svg";
+import Navigation from '../components/Navigation'
 
 function Copyright(props: any) {
     return (

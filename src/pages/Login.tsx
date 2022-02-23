@@ -1,7 +1,5 @@
-import Navigation from '../components/Navigation'
-
 import * as React from 'react'
-import Avatar from '@mui/material/Avatar'
+import { useState } from "react";
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
@@ -13,10 +11,11 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useLoginMutation } from '../generated/graphql'
 
 import Modal from '../components/modaux/ForgetPassword'
-
 import imgLogo from "../assets/pictures/Logo.svg";
+
 
 function Copyright(props: any) {
     return (
@@ -27,7 +26,7 @@ function Copyright(props: any) {
             {...props}
         >
             {'Copyright © '}
-            Paprika Website created with Love
+            Paprika Website created with Love !
         </Typography>
     )
 }
@@ -35,14 +34,26 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function SignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [incorrectStyle, setIncorrectStyle] = useState(false);
+  
+    function validateForm() {
+      return email.length > 0 && password.length > 0;
+    }
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+    }
+
+    const [mutationLogin, { data: user }] = useLoginMutation();
+    async function login() {
+      await mutationLogin({ variables: {userLoginInput: {email, password}}})
+      if ( user?.login.token ) {
+        
+      } else {
+        setIncorrectStyle(true);
+      }
     }
 
     return (
@@ -80,6 +91,9 @@ export default function SignIn() {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             autoFocus
                         />
                         <TextField
@@ -90,6 +104,8 @@ export default function SignIn() {
                             label="Password"
                             type="password"
                             id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             autoComplete="current-password"
                         />
                         <FormControlLabel
@@ -100,6 +116,8 @@ export default function SignIn() {
                         />
                         <Button
                             type="submit"
+                            disabled={!validateForm()}
+                            onClick={login}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
@@ -123,3 +141,11 @@ export default function SignIn() {
         </ThemeProvider>
     )
 }
+    function useLoginMutation(): [any, { data: any; }] {
+        throw new Error('Function not implemented.');
+    }
+
+    function setIncorrectStyle(arg0: boolean) {
+        throw new Error('Function not implemented.');
+    }
+
