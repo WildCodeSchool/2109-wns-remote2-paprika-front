@@ -54,7 +54,7 @@ function App() {
             <GetUsers />
             <BrowserRouter>
                 <Switch>
-                    <Route path="/" exact component={Default} />
+                    <Route path="/" exact component={Login} />
                     <Route path="/home" exact component={Home} />
                     <Route path="/calendar" exact component={Calendar} />
                     <Route path="/listproject" exact component={ListProject} />
@@ -62,7 +62,6 @@ function App() {
                     <Route path="/tasksproject" exact component={TasksProject} />
                     <Route path="/notifications" exact component={Notifications} />
                     <Route path="/documentation" exact component={Documentation} />
-                    <Route path="/login" exact component={Login} />
                     <Route path="/register" exact component={Register} />
                     <Route path="/firstConnection" exact component={FirstConnection} />
                     <Route component={NotFound} />

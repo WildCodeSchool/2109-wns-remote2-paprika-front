@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { useState } from "react";
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
@@ -15,6 +17,7 @@ import { useLoginMutation } from '../generated/graphql'
 
 import Modal from '../components/modaux/ForgetPassword'
 import imgLogo from "../assets/pictures/Logo.svg";
+import Calendar from './Calendar';
 
 
 function Copyright(props: any) {
@@ -37,6 +40,8 @@ export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [incorrectStyle, setIncorrectStyle] = useState(false);
+    const history = useHistory();
+
   
     function validateForm() {
       return email.length > 0 && password.length > 0;
@@ -50,8 +55,9 @@ export default function SignIn() {
     async function login() {
       await mutationLogin({ variables: {userLoginInput: {email, password}}})
       if ( user?.login.token ) {
-        
-      } else {
+        history.push("/calendar");
+
+    } else {
         setIncorrectStyle(true);
       }
     }
@@ -141,11 +147,3 @@ export default function SignIn() {
         </ThemeProvider>
     )
 }
-    function useLoginMutation(): [any, { data: any; }] {
-        throw new Error('Function not implemented.');
-    }
-
-    function setIncorrectStyle(arg0: boolean) {
-        throw new Error('Function not implemented.');
-    }
-
