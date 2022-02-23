@@ -86,13 +86,29 @@ query GetCommentsTask($taskId: String!) {
     }
 }
 
-query GetProjectsByUser{
-    getProjectsByUser{
+query GetProjectsByUser {
+    getProjectsByUser {
         id
         startAt
         endAt
         name
         client
         description
+        participants {
+            user {
+                id
+                email
+                lastName
+                firstName
+                role
+            }
+            projectRole {
+                name
+            }
+        }
+        tasks{
+            name
+            status
+        }
     }
 }
