@@ -5,6 +5,7 @@ query getAllUsers {
         lastName
         firstName
         role
+        password
     }
 }
 
