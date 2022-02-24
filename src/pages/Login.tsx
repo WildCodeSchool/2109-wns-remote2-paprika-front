@@ -15,6 +15,14 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useLoginMutation } from '../generated/graphql'
 
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 import Modal from '../components/modaux/ForgetPassword'
 import imgLogo from "../assets/pictures/Logo.svg";
 import Calendar from './Calendar';
@@ -49,18 +57,21 @@ export default function SignIn() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
+        //verifie body + requete au back + tente connextion 
     }
 
     const [mutationLogin, { data: user }] = useLoginMutation();
     async function login() {
       await mutationLogin({ variables: {userLoginInput: {email, password}}})
       if ( user?.login.token ) {
+          console.log('test1')
         history.push("/calendar");
-
     } else {
         setIncorrectStyle(true);
       }
     }
+
+ 
 
     return (
         <ThemeProvider theme={theme}>
@@ -114,6 +125,7 @@ export default function SignIn() {
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete="current-password"
                         />
+   
                         <FormControlLabel
                             control={
                                 <Checkbox value="remember" color="primary" />
@@ -123,13 +135,14 @@ export default function SignIn() {
                         <Button
                             type="submit"
                             disabled={!validateForm()}
-                            onClick={login}
+                            //onClick={login}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Sign In
                         </Button>
+                        
                         <Grid container>
                             <Grid item xs>
                                 <Modal />
