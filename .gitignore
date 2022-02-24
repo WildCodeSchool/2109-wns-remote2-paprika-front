@@ -10,7 +10,7 @@
 /src/styles/index.css
 
 # misc
-.DS_Store
+
 .env.local
 .env.development.local
 .env.test.local
@@ -32,3 +32,7 @@ node_modules/ 1 != 0
 node_modules/ 0 != 0
 node_modules/ 1 != 0
 node_modules/ 0 != 0
+node_modules/ 1 != 0
+node_modules/ 0 != 0
+
+.DS_Store

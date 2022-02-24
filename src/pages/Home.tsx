@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 import Navigation from "../components/Navigation";
-
-const Home = () => {
+function Home(props:any) {
+    const [ isLogged, setIsLogged ] = props;
     return (
         <div className="home">
             <Navigation />

@@ -1,0 +1,99 @@
+query getAllUsers {
+    getAllUsers {
+        id
+        email
+        lastName
+        firstName
+        role
+        password
+    }
+}
+
+query getUser($userId: String!) {
+    getUser(userId: $userId) {
+        id
+        email
+        lastName
+        firstName
+        role
+    }
+}
+
+query GetAllTasks {
+    getAllTasks {
+        id
+        name
+        description
+        status
+        priority
+        projectId
+        timing
+    }
+}
+
+query GetTasks($taskId: String!) {
+    getTask(taskId: $taskId) {
+        id
+        name
+        status
+        description
+        priority
+        projectId
+        timing
+    }
+}
+
+query GetTaskByProject($projectId: String!) {
+    getTaskByProject(projectId: $projectId) {
+        id
+        name
+        status
+        description
+        priority
+        projectId
+        timing
+    }
+}
+
+query GetAllProjects {
+    getAllProjects {
+        id
+        startAt
+        endAt
+        name
+        client
+        description
+    }
+}
+
+query GetProjectById($projectId: String!) {
+    getProjectById(projectId: $projectId) {
+        id
+        startAt
+        endAt
+        name
+        client
+        description
+    }
+}
+
+query GetCommentsTask($taskId: String!) {
+    getCommentsByTask(taskId: $taskId) {
+        id
+        content
+        userId
+        createdAt
+        taskId
+    }
+}
+
+query GetProjectsByUser{
+    getProjectsByUser{
+        id
+        startAt
+        endAt
+        name
+        client
+        description
+    }
+}
