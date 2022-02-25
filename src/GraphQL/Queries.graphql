@@ -28,10 +28,17 @@ query GetAllTasks {
         priority
         projectId
         timing
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
     }
 }
 
-query GetTasks($taskId: String!) {
+query GetTask($taskId: String!) {
     getTask(taskId: $taskId) {
         id
         name
@@ -40,6 +47,13 @@ query GetTasks($taskId: String!) {
         priority
         projectId
         timing
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
     }
 }
 
@@ -52,6 +66,13 @@ query GetTaskByProject($projectId: String!) {
         priority
         projectId
         timing
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
     }
 }
 
