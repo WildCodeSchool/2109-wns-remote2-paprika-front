@@ -116,5 +116,21 @@ query GetProjectsByUser {
         name
         client
         description
+        participants {
+            user {
+                id
+                email
+                lastName
+                firstName
+                role
+            }
+            projectRole {
+                name
+            }
+        }
+        tasks{
+            name
+            status
+        }
     }
 }
