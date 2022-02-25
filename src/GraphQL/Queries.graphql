@@ -28,7 +28,13 @@ query GetAllTasks {
         priority
         projectId
         timing
-        users
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
     }
 }
 
@@ -41,7 +47,13 @@ query GetTask($taskId: String!) {
         priority
         projectId
         timing
-        users
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
     }
 }
 
@@ -54,7 +66,13 @@ query GetTaskByProject($projectId: String!) {
         priority
         projectId
         timing
-        users
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
     }
 }
 
@@ -90,8 +108,8 @@ query GetCommentsTask($taskId: String!) {
     }
 }
 
-query GetProjectsByUser{
-    getProjectsByUser{
+query GetProjectsByUser {
+    getProjectsByUser {
         id
         startAt
         endAt
