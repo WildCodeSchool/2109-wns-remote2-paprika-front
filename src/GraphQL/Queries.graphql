@@ -28,10 +28,11 @@ query GetAllTasks {
         priority
         projectId
         timing
+        users
     }
 }
 
-query GetTasks($taskId: String!) {
+query GetTask($taskId: String!) {
     getTask(taskId: $taskId) {
         id
         name
@@ -40,6 +41,7 @@ query GetTasks($taskId: String!) {
         priority
         projectId
         timing
+        users
     }
 }
 
@@ -52,6 +54,7 @@ query GetTaskByProject($projectId: String!) {
         priority
         projectId
         timing
+        users
     }
 }
 
