@@ -72,3 +72,7 @@ mutation updateTask($updateTaskInput: UpdateTaskInput!) {
         }
     }
 }
+
+mutation AssignUsersToProject($projectId: String!, $usersRoles: [UsersRoles]){
+    assignUsersToProject(projectId: $projectId, usersRoles: $usersRoles)
+}

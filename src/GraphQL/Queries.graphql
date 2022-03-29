@@ -128,9 +128,16 @@ query GetProjectsByUser {
                 name
             }
         }
-        tasks{
+        tasks {
             name
             status
         }
+    }
+}
+
+query getProjectRoles {
+    getProjectRoles {
+        id
+        name
     }
 }
