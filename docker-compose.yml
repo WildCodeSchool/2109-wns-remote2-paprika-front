@@ -1,0 +1,41 @@
+services:
+  front:
+    build: ./
+    ports:
+      - 3000:3000
+    restart: always
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./src/:/enrgy057/paprika-front/src/
+      - ./public/:/enrgy057/paprika-front/public/
+    depends_on:
+      back:
+        condition: service_started
+  back:
+    image: melissakintz/paprika-back
+    ports:
+      - 4000:4000
+    volumes:
+      - ./src/:/paprika-back/src
+    restart: always
+    links:
+      - mysqldb
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+  mysqldb:
+    image: mysql
+    platform: linux/x86_64
+    healthcheck:
+      test: 'exit 0'
+    restart: always
+    environment:
+      MYSQL_DATABASE: paprika
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql

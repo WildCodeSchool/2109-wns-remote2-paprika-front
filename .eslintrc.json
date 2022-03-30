@@ -11,19 +11,16 @@
         },
         "ecmaVersion": 12
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
+    "plugins": ["react", "@typescript-eslint"],
     "rules": {
         "no-use-before-define": "off",
         "no-console": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
-        "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ]
+        "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }]
     },
     "settings": {
         "import/resolver": {
-        "typescript": {}
+            "typescript": {}
         }
     }
 }

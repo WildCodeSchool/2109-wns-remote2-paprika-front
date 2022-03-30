@@ -10,6 +10,7 @@ RUN npm install
 COPY src src
 COPY ./public ./public
 
-RUN npm run build
+ENV WDS_SOCKET_PORT=0
+ENV CHOKIDAR_USEPOLLING=true
 
 CMD npm start
