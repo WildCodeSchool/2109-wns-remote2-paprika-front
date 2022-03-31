@@ -9,6 +9,17 @@ query getAllUsers {
     }
 }
 
+query getCurrentUser {
+    getCurrentUser {
+        id
+        email
+        lastName
+        firstName
+        role
+        password
+    }
+}
+
 query getUser($userId: String!) {
     getUser(userId: $userId) {
         id
@@ -77,14 +88,20 @@ query GetProjectById($projectId: String!) {
     }
 }
 
-query GetCommentsTask($taskId: String!) {
-    getCommentsByTask(taskId: $taskId) {
-        id
-        content
-        userId
-        createdAt
-        taskId
+query GetCommentsByTask($taskId: String!) {
+  getCommentsByTask(taskId: $taskId) {
+    id
+    content
+    createdAt
+    user {
+      id
+      email
+      lastName
+      firstName
+      role
     }
+    taskId
+  }
 }
 
 query GetProjectsByUser{

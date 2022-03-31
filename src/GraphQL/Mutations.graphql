@@ -28,3 +28,18 @@ mutation login($userLoginInput: UserLoginInput!) {
     }
   }
 }
+
+mutation createComment($commentInput: CommentInput!) {
+  createComment(commentInput: $commentInput) {
+    id
+    content
+    createdAt
+    user {
+      id
+      email
+      lastName
+      firstName
+      role
+    }
+  }
+}
