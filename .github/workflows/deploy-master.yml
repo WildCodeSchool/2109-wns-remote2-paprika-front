@@ -6,9 +6,9 @@ name: deploy
 # events but only for the master branch
 on:
   push:
-    branches: [ dev,master ]
+    branches: [dev, master]
   pull_request:
-    branches: [ master, dev ]
+    branches: [master, dev]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,7 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Check out code 
+      - name: Check out code
         uses: actions/checkout@v2
 
       - name: Checking for .DS_Store files
@@ -37,3 +37,19 @@ jobs:
       - name: Node install
         run: npm install
 
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build and push
+        run: docker buildx build --platform linux/amd64,linux/arm64 -t wonecode/paprika-front --push

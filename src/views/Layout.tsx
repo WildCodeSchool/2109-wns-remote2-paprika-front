@@ -8,6 +8,7 @@ function Layout() {
       <nav>
         <Link to="login">Login</Link>
         <Link to="home">Home</Link>
+        <Link to="users">Users</Link>
       </nav>
       <div className="content">
         <Outlet />
