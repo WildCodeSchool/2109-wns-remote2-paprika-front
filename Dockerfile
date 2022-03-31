@@ -1,15 +1,13 @@
-FROM node:lts-alpine
+FROM --platform=$BUILDPLATFORM node:lts-alpine AS build
 
-RUN mkdir /paprika-front
 WORKDIR /paprika-front
 
 COPY package.json ./
+COPY tsconfig.json ./
 
-RUN npm install
+RUN npm i
 
 COPY src src
 COPY ./public ./public
-
-RUN npm run build
 
 CMD npm start
