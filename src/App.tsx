@@ -5,8 +5,9 @@ import client from './graphql.config';
 import { ThemeProvider } from '@emotion/react';
 import theme from './theme/theme';
 
+import Layout from './components/Layout';
 import Login from './views/Login';
-import Home from './views/Home';
+import Dashboard from './views/Dashboard';
 import Users from './views/Users';
 
 function App() {
@@ -14,10 +15,10 @@ function App() {
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/">
-            <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/users" element={<Users />} />
+          <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="users" element={<Users />} />
           </Route>
         </Routes>
       </ThemeProvider>
