@@ -31,12 +31,13 @@ export type Comment = {
   createdAt: Scalars['Date'];
   id: Scalars['ID'];
   taskId: Scalars['String'];
-  userId: Scalars['String'];
+  user?: Maybe<User>;
 };
 
 export type CommentInput = {
   content: Scalars['String'];
   taskId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type Document = {
@@ -206,6 +207,7 @@ export type Query = {
   getAllTasks: Array<Task>;
   getAllUsers: Array<User>;
   getCommentsByTask: Array<Comment>;
+  getCurrentUser?: Maybe<User>;
   getDocumentById?: Maybe<Document>;
   getProjectById: Project;
   getProjectRoles: Array<Maybe<ProjectRole>>;
@@ -397,6 +399,11 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } };
 
+export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCurrentUserQuery = { __typename?: 'Query', getCurrentUser?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined };
+
 export type GetAllTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -426,14 +433,14 @@ export type GetProjectByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetProjectByIdQuery = { __typename?: 'Query', getProjectById: { __typename?: 'Project', id: string, startAt?: any | null | undefined, endAt?: any | null | undefined, name: string, client: string, description: string } };
+export type GetProjectByIdQuery = { __typename?: 'Query', getProjectById: { __typename?: 'Project', id: string, startAt?: any | null | undefined, endAt?: any | null | undefined, name: string, client: string, description: string, participants?: Array<{ __typename?: 'UserProject', user?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined, projectRole?: { __typename?: 'ProjectRole', name: string } | null | undefined } | null | undefined> | null | undefined, tasks?: Array<{ __typename?: 'Task', name: string, status: Status } | null | undefined> | null | undefined } };
 
 export type GetCommentsTaskQueryVariables = Exact<{
   taskId: Scalars['String'];
 }>;
 
 
-export type GetCommentsTaskQuery = { __typename?: 'Query', getCommentsByTask: Array<{ __typename?: 'Comment', id: string, content: string, userId: string, createdAt: any, taskId: string }> };
+export type GetCommentsTaskQuery = { __typename?: 'Query', getCommentsByTask: Array<{ __typename?: 'Comment', id: string, content: string, createdAt: any, taskId: string, user?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined }> };
 
 export type GetProjectsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -684,7 +691,7 @@ export type AssignUsersToProjectMutationHookResult = ReturnType<typeof useAssign
 export type AssignUsersToProjectMutationResult = Apollo.MutationResult<AssignUsersToProjectMutation>;
 export type AssignUsersToProjectMutationOptions = Apollo.BaseMutationOptions<AssignUsersToProjectMutation, AssignUsersToProjectMutationVariables>;
 export const GetAllUsersDocument = gql`
-    query getAllUsers {
+    query GetAllUsers {
   getAllUsers {
     id
     email
@@ -723,7 +730,7 @@ export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
 export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
 export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
 export const GetUserDocument = gql`
-    query getUser($userId: String!) {
+    query GetUser($userId: String!) {
   getUser(userId: $userId) {
     id
     email
@@ -761,6 +768,44 @@ export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const GetCurrentUserDocument = gql`
+    query GetCurrentUser {
+  getCurrentUser {
+    id
+    email
+    lastName
+    firstName
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useGetCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
+      }
+export function useGetCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
+        }
+export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>;
+export type GetCurrentUserLazyQueryHookResult = ReturnType<typeof useGetCurrentUserLazyQuery>;
+export type GetCurrentUserQueryResult = Apollo.QueryResult<GetCurrentUserQuery, GetCurrentUserQueryVariables>;
 export const GetAllTasksDocument = gql`
     query GetAllTasks {
   getAllTasks {
@@ -952,6 +997,22 @@ export const GetProjectByIdDocument = gql`
     name
     client
     description
+    participants {
+      user {
+        id
+        email
+        lastName
+        firstName
+        role
+      }
+      projectRole {
+        name
+      }
+    }
+    tasks {
+      name
+      status
+    }
   }
 }
     `;
@@ -988,7 +1049,13 @@ export const GetCommentsTaskDocument = gql`
   getCommentsByTask(taskId: $taskId) {
     id
     content
-    userId
+    user {
+      id
+      email
+      lastName
+      firstName
+      role
+    }
     createdAt
     taskId
   }
