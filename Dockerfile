@@ -7,7 +7,6 @@ COPY tsconfig.json ./
 
 RUN npm i
 
-COPY src src
-COPY ./public ./public
+COPY . .
 
-CMD npm start
+RUN npm run build
