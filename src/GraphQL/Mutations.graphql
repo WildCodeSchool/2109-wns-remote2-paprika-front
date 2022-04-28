@@ -7,11 +7,72 @@ mutation createProject($projectInput: ProjectInput!) {
     }
 }
 
-mutation updateProject($projectId: String!, $updateProjectInput: UpdateProjectInput!){
-    updateProject(projectId: $projectId, updateProjectInput: $updateProjectInput){
+mutation updateProject(
+    $projectId: String!
+    $updateProjectInput: UpdateProjectInput!
+) {
+    updateProject(
+        projectId: $projectId
+        updateProjectInput: $updateProjectInput
+    ) {
         id
         name
         client
         description
     }
+}
+
+mutation login($userLoginInput: UserLoginInput!) {
+    login(userLoginInput: $userLoginInput) {
+        token
+        user {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
+    }
+}
+
+mutation createTask($taskInput: TaskInput!) {
+    createTask(taskInput: $taskInput) {
+        id
+        name
+        description
+        status
+        priority
+        projectId
+        timing
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
+    }
+}
+
+mutation updateTask($updateTaskInput: UpdateTaskInput!) {
+    updateTask(updateTaskInput: $updateTaskInput) {
+        id
+        name
+        description
+        status
+        priority
+        projectId
+        timing
+        users {
+            id
+            email
+            lastName
+            firstName
+            role
+        }
+    }
+}
+
+mutation AssignUsersToProject($projectId: String!, $usersRoles: [UsersRoles]){
+    assignUsersToProject(projectId: $projectId, usersRoles: $usersRoles)
 }
