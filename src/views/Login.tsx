@@ -35,7 +35,7 @@ const Login = () => {
       <RightSide>
         <Stack sx={{ mb: 5, textAlign: 'left' }}>
           <Typography variant="h4" fontWeight="bold">
-            Se connecter à Paprikazer
+            Se connecter à Paprikazerzer
           </Typography>
           <Typography sx={{ color: 'text.secondary' }}>
             Entrez vos informations de connexion ci-dessous
