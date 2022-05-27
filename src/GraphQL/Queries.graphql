@@ -1,91 +1,127 @@
-query getAllUsers {
-    getAllUsers {
-        id
-        email
-        lastName
-        firstName
-        role
-        password
-    }
+query GetAllUsers {
+  getAllUsers {
+    id
+    email
+    lastName
+    firstName
+    role
+    password
+  }
 }
 
-query getCurrentUser {
-    getCurrentUser {
-        id
-        email
-        lastName
-        firstName
-        role
-        password
-    }
+query GetUser($userId: String!) {
+  getUser(userId: $userId) {
+    id
+    email
+    lastName
+    firstName
+    role
+  }
 }
 
-query getUser($userId: String!) {
-    getUser(userId: $userId) {
-        id
-        email
-        lastName
-        firstName
-        role
-    }
+query GetCurrentUser {
+  getCurrentUser {
+    id
+    email
+    lastName
+    firstName
+    role
+  }
 }
 
 query GetAllTasks {
-    getAllTasks {
-        id
-        name
-        description
-        status
-        priority
-        projectId
-        timing
+  getAllTasks {
+    id
+    name
+    description
+    status
+    priority
+    projectId
+    timing
+    users {
+      id
+      email
+      lastName
+      firstName
+      role
     }
+  }
 }
 
-query GetTasks($taskId: String!) {
-    getTask(taskId: $taskId) {
-        id
-        name
-        status
-        description
-        priority
-        projectId
-        timing
+query GetTask($taskId: String!) {
+  getTask(taskId: $taskId) {
+    id
+    name
+    status
+    description
+    priority
+    projectId
+    timing
+    users {
+      id
+      email
+      lastName
+      firstName
+      role
     }
+  }
 }
 
 query GetTaskByProject($projectId: String!) {
-    getTaskByProject(projectId: $projectId) {
-        id
-        name
-        status
-        description
-        priority
-        projectId
-        timing
+  getTaskByProject(projectId: $projectId) {
+    id
+    name
+    status
+    description
+    priority
+    projectId
+    timing
+    users {
+      id
+      email
+      lastName
+      firstName
+      role
     }
+  }
 }
 
 query GetAllProjects {
-    getAllProjects {
-        id
-        startAt
-        endAt
-        name
-        client
-        description
-    }
+  getAllProjects {
+    id
+    startAt
+    endAt
+    name
+    client
+    description
+  }
 }
 
 query GetProjectById($projectId: String!) {
-    getProjectById(projectId: $projectId) {
+  getProjectById(projectId: $projectId) {
+    id
+    startAt
+    endAt
+    name
+    client
+    description
+    participants {
+      user {
         id
-        startAt
-        endAt
+        email
+        lastName
+        firstName
+        role
+      }
+      projectRole {
         name
-        client
-        description
+      }
     }
+    tasks {
+      name
+      status
+    }
+  }
 }
 
 query GetCommentsByTask($taskId: String!) {
@@ -104,13 +140,36 @@ query GetCommentsByTask($taskId: String!) {
   }
 }
 
-query GetProjectsByUser{
-    getProjectsByUser{
+query GetProjectsByUser {
+  getProjectsByUser {
+    id
+    startAt
+    endAt
+    name
+    client
+    description
+    participants {
+      user {
         id
-        startAt
-        endAt
+        email
+        lastName
+        firstName
+        role
+      }
+      projectRole {
         name
-        client
-        description
+      }
     }
+    tasks {
+      name
+      status
+    }
+  }
+}
+
+query getProjectRoles {
+  getProjectRoles {
+    id
+    name
+  }
 }

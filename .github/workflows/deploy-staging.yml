@@ -1,14 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: deploy-master
+name: deploy-staging
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [master]
+    branches: [dev]
   pull_request:
-    branches: [master]
+    branches: [dev]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -51,4 +51,4 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Build and push
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t wonecode/paprika-front --push .
+        run: docker buildx build --platform linux/amd64,linux/arm64 -t wonecode/paprika-front-staging --push .
