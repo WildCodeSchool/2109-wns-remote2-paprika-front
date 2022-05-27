@@ -350,6 +350,13 @@ export type CreateProjectMutationVariables = Exact<{
 
 export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, name: string, client: string, description: string } };
 
+export type DeleteProjectMutationVariables = Exact<{
+  projectId: Scalars['String'];
+}>;
+
+
+export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject?: boolean | null | undefined };
+
 export type UpdateProjectMutationVariables = Exact<{
   projectId: Scalars['String'];
   updateProjectInput: UpdateProjectInput;
@@ -365,13 +372,6 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthPayLoad', token: string, user: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } } };
 
-
-export type CreateCommentMutationVariables = Exact<{
-  commentInput: CommentInput;
-}>;
-
-
-export type CreateCommentMutation = { __typename?: 'Mutation', createComment: { __typename?: 'Comment', id: string, content: string, createdAt: any, user?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined } };
 export type CreateTaskMutationVariables = Exact<{
   taskInput: TaskInput;
 }>;
@@ -386,6 +386,13 @@ export type UpdateTaskMutationVariables = Exact<{
 
 export type UpdateTaskMutation = { __typename?: 'Mutation', updateTask: { __typename?: 'Task', id: string, name: string, description: string, status: Status, priority: Priority, projectId: string, timing?: string | null | undefined, users?: Array<{ __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined> | null | undefined } };
 
+export type CreateCommentMutationVariables = Exact<{
+  commentInput: CommentInput;
+}>;
+
+
+export type CreateCommentMutation = { __typename?: 'Mutation', createComment: { __typename?: 'Comment', id: string, content: string, createdAt: any, user?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined } };
+
 export type AssignUsersToProjectMutationVariables = Exact<{
   projectId: Scalars['String'];
   usersRoles?: InputMaybe<Array<InputMaybe<UsersRoles>> | InputMaybe<UsersRoles>>;
@@ -394,18 +401,10 @@ export type AssignUsersToProjectMutationVariables = Exact<{
 
 export type AssignUsersToProjectMutation = { __typename?: 'Mutation', assignUsersToProject?: boolean | null | undefined };
 
-
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite, password: string }> };
-
-
-export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCurrentUserQuery = { __typename?: 'Query', getCurrentUser?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite, password: string } | null | undefined };
-
 
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -414,12 +413,10 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } };
 
-
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCurrentUserQuery = { __typename?: 'Query', getCurrentUser?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined };
-
 
 export type GetAllTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -458,7 +455,6 @@ export type GetCommentsByTaskQueryVariables = Exact<{
 
 
 export type GetCommentsByTaskQuery = { __typename?: 'Query', getCommentsByTask: Array<{ __typename?: 'Comment', id: string, content: string, createdAt: any, taskId: string, user?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined }> };
-
 
 export type GetProjectsByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -507,6 +503,37 @@ export function useCreateProjectMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateProjectMutationHookResult = ReturnType<typeof useCreateProjectMutation>;
 export type CreateProjectMutationResult = Apollo.MutationResult<CreateProjectMutation>;
 export type CreateProjectMutationOptions = Apollo.BaseMutationOptions<CreateProjectMutation, CreateProjectMutationVariables>;
+export const DeleteProjectDocument = gql`
+    mutation deleteProject($projectId: String!) {
+  deleteProject(projectId: $projectId)
+}
+    `;
+export type DeleteProjectMutationFn = Apollo.MutationFunction<DeleteProjectMutation, DeleteProjectMutationVariables>;
+
+/**
+ * __useDeleteProjectMutation__
+ *
+ * To run a mutation, you first call `useDeleteProjectMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteProjectMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteProjectMutation, { data, loading, error }] = useDeleteProjectMutation({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *   },
+ * });
+ */
+export function useDeleteProjectMutation(baseOptions?: Apollo.MutationHookOptions<DeleteProjectMutation, DeleteProjectMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument, options);
+      }
+export type DeleteProjectMutationHookResult = ReturnType<typeof useDeleteProjectMutation>;
+export type DeleteProjectMutationResult = Apollo.MutationResult<DeleteProjectMutation>;
+export type DeleteProjectMutationOptions = Apollo.BaseMutationOptions<DeleteProjectMutation, DeleteProjectMutationVariables>;
 export const UpdateProjectDocument = gql`
     mutation updateProject($projectId: String!, $updateProjectInput: UpdateProjectInput!) {
   updateProject(projectId: $projectId, updateProjectInput: $updateProjectInput) {
@@ -584,7 +611,6 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-
 export const CreateTaskDocument = gql`
     mutation createTask($taskInput: TaskInput!) {
   createTask(taskInput: $taskInput) {
@@ -605,35 +631,19 @@ export const CreateTaskDocument = gql`
   }
 }
     `;
-
-export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+export type CreateTaskMutationFn = Apollo.MutationFunction<CreateTaskMutation, CreateTaskMutationVariables>;
 
 /**
- * __useCreateCommentMutation__
+ * __useCreateTaskMutation__
  *
- * To run a mutation, you first call `useCreateCommentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateCommentMutation` returns a tuple that includes:
-
+ * To run a mutation, you first call `useCreateTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTaskMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createCommentMutation, { data, loading, error }] = useCreateCommentMutation({
- *   variables: {
- *      commentInput: // value for 'commentInput'
- *   },
- * });
- */
-export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateCommentMutation, CreateCommentMutationVariables>(CreateCommentDocument, options);
-      }
-export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
-export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
-export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
-
  * const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
  *   variables: {
  *      taskInput: // value for 'taskInput'
@@ -693,6 +703,48 @@ export function useUpdateTaskMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
 export type UpdateTaskMutationResult = Apollo.MutationResult<UpdateTaskMutation>;
 export type UpdateTaskMutationOptions = Apollo.BaseMutationOptions<UpdateTaskMutation, UpdateTaskMutationVariables>;
+export const CreateCommentDocument = gql`
+    mutation createComment($commentInput: CommentInput!) {
+  createComment(commentInput: $commentInput) {
+    id
+    content
+    createdAt
+    user {
+      id
+      email
+      lastName
+      firstName
+      role
+    }
+  }
+}
+    `;
+export type CreateCommentMutationFn = Apollo.MutationFunction<CreateCommentMutation, CreateCommentMutationVariables>;
+
+/**
+ * __useCreateCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentMutation, { data, loading, error }] = useCreateCommentMutation({
+ *   variables: {
+ *      commentInput: // value for 'commentInput'
+ *   },
+ * });
+ */
+export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentMutation, CreateCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCommentMutation, CreateCommentMutationVariables>(CreateCommentDocument, options);
+      }
+export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
+export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
+export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
 export const AssignUsersToProjectDocument = gql`
     mutation AssignUsersToProject($projectId: String!, $usersRoles: [UsersRoles]) {
   assignUsersToProject(projectId: $projectId, usersRoles: $usersRoles)
@@ -725,7 +777,6 @@ export function useAssignUsersToProjectMutation(baseOptions?: Apollo.MutationHoo
 export type AssignUsersToProjectMutationHookResult = ReturnType<typeof useAssignUsersToProjectMutation>;
 export type AssignUsersToProjectMutationResult = Apollo.MutationResult<AssignUsersToProjectMutation>;
 export type AssignUsersToProjectMutationOptions = Apollo.BaseMutationOptions<AssignUsersToProjectMutation, AssignUsersToProjectMutationVariables>;
-
 export const GetAllUsersDocument = gql`
     query GetAllUsers {
   getAllUsers {
@@ -765,45 +816,6 @@ export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
 export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
 export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
-export const GetCurrentUserDocument = gql`
-    query getCurrentUser {
-  getCurrentUser {
-    id
-    email
-    lastName
-    firstName
-    role
-    password
-  }
-}
-    `;
-
-/**
- * __useGetCurrentUserQuery__
- *
- * To run a query within a React component, call `useGetCurrentUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCurrentUserQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
-      }
-export function useGetCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
-        }
-export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>;
-export type GetCurrentUserLazyQueryHookResult = ReturnType<typeof useGetCurrentUserLazyQuery>;
-export type GetCurrentUserQueryResult = Apollo.QueryResult<GetCurrentUserQuery, GetCurrentUserQueryVariables>;
 export const GetUserDocument = gql`
     query GetUser($userId: String!) {
   getUser(userId: $userId) {
@@ -1124,16 +1136,6 @@ export const GetCommentsByTaskDocument = gql`
   getCommentsByTask(taskId: $taskId) {
     id
     content
-<<<<<<< comments
-=======
-    user {
-      id
-      email
-      lastName
-      firstName
-      role
-    }
->>>>>>> dev
     createdAt
     user {
       id
