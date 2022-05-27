@@ -124,10 +124,11 @@ query GetProjectById($projectId: String!) {
   }
 }
 
-query GetCommentsTask($taskId: String!) {
+query GetCommentsByTask($taskId: String!) {
   getCommentsByTask(taskId: $taskId) {
     id
     content
+    createdAt
     user {
       id
       email
@@ -135,7 +136,6 @@ query GetCommentsTask($taskId: String!) {
       firstName
       role
     }
-    createdAt
     taskId
   }
 }

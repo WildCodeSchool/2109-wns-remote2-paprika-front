@@ -71,8 +71,26 @@ mutation updateTask($updateTaskInput: UpdateTaskInput!) {
             role
         }
     }
+  }
 }
+
+mutation createComment($commentInput: CommentInput!) {
+  createComment(commentInput: $commentInput) {
+    id
+    content
+    createdAt
+    user {
+      id
+      email
+      lastName
+      firstName
+      role
+    }
+  }
+}
+
 
 mutation AssignUsersToProject($projectId: String!, $usersRoles: [UsersRoles]){
     assignUsersToProject(projectId: $projectId, usersRoles: $usersRoles)
 }
+
