@@ -1,13 +1,13 @@
-import React from 'react';
 import { ApolloProvider } from '@apollo/client';
-import { Routes, Route } from 'react-router-dom';
-import client from './graphql.config';
 import { ThemeProvider } from '@emotion/react';
-import theme from './theme/theme';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import Login from './views/Login';
+import client from './graphql.config';
+import theme from './theme/theme';
 import Dashboard from './views/Dashboard';
+import Login from './views/Login';
 import Users from './views/Users';
 
 function App() {
@@ -16,10 +16,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="login" element={<Login />} />
-          <Route path="dashboard" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="users" element={<Users />} />
-          </Route>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/users" element={<Users />} />
         </Routes>
       </ThemeProvider>
     </ApolloProvider>

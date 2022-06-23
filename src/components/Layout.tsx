@@ -1,22 +1,19 @@
-import React from 'react';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import { Paper, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
+import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Avatar from '@mui/material/Avatar';
-
+import Toolbar from '@mui/material/Toolbar';
 import { makeStyles } from '@mui/styles';
-
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { Paper, Typography } from '@mui/material';
+import styled from 'styled-components';
 
 const drawerWidth = 280;
 
@@ -25,12 +22,12 @@ const links = [
     name: 'Dashboard',
     icon: <DashboardIcon />,
     path: '',
-    cleanPath: '/dashboard/',
+    cleanPath: '/dashboard',
   },
   {
     name: 'Utilisateurs',
     icon: <PeopleAltIcon />,
-    path: 'users',
+    path: '/users',
     cleanPath: '/dashboard/users',
   },
 ];
@@ -85,78 +82,85 @@ const UserTab = styled(Paper)`
   margin-bottom: 24px;
 `;
 
-const Layout = () => {
+type Children = {
+  children?: JSX.Element;
+};
+
+const Layout = ({ children }: Children) => {
   const location = useLocation();
   const classes = useStyles();
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <CssBaseline />
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Box sx={{ padding: '24px 24px 0 24px' }}>
-          <Typography
-            fontWeight={800}
-            variant={"h6"}
-            sx={{ marginBottom: '24px', color: '#f39c12' }}
-          >
-            Paprika Dashboard
-          </Typography>
-          <UserTab elevation={0}>
-            <Avatar
-              sx={{
-                width: 40,
-                height: 40,
-                fontSize: 18,
-                fontWeight: 600,
-                marginRight: 2,
-                bgcolor: '#f39c12',
-              }}
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="permanent"
+          anchor="left"
+        >
+          <Box sx={{ padding: '24px 24px 0 24px' }}>
+            <Typography
+              fontWeight={800}
+              variant={'h6'}
+              sx={{ marginBottom: '24px', color: '#f39c12' }}
             >
-              JD
-            </Avatar>
-            <Typography fontSize={14} fontWeight={700}>
-              John Doe
+              Paprika Dashboard
             </Typography>
-          </UserTab>
-        </Box>
-        <List>
-          {links.map((link) => (
-            <CustomNavLink key={link.name} to={`/dashboard/${link.path}`}>
-              <CustomListItem
-                className={
-                  location.pathname == link.cleanPath
-                    ? classes.active
-                    : classes.inactive
-                }
+            <UserTab elevation={0}>
+              <Avatar
+                sx={{
+                  width: 40,
+                  height: 40,
+                  fontSize: 18,
+                  fontWeight: 600,
+                  marginRight: 2,
+                  bgcolor: '#f39c12',
+                }}
               >
-                <ListItemIcon
-                  sx={{ minWidth: 0, paddingRight: '20px' }}
+                JD
+              </Avatar>
+              <Typography fontSize={14} fontWeight={700}>
+                John Doe
+              </Typography>
+            </UserTab>
+          </Box>
+          <List>
+            {links.map((link) => (
+              <CustomNavLink key={link.name} to={`/dashboard${link.path}`}>
+                <CustomListItem
                   className={
-                    location.pathname == link.cleanPath
-                      ? classes.activeIcon
-                      : classes.inactiveIcon
+                    link.cleanPath === location.pathname
+                      ? classes.active
+                      : classes.inactive
                   }
                 >
-                  {link.icon}
-                </ListItemIcon>
-                <Item>{link.name}</Item>
-              </CustomListItem>
-            </CustomNavLink>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
+                  <ListItemIcon
+                    sx={{ minWidth: 0, paddingRight: '20px' }}
+                    className={
+                      link.cleanPath === location.pathname
+                        ? classes.activeIcon
+                        : classes.inactiveIcon
+                    }
+                  >
+                    {link.icon}
+                  </ListItemIcon>
+                  <Item>{link.name}</Item>
+                </CustomListItem>
+              </CustomNavLink>
+            ))}
+          </List>
+        </Drawer>
+        <Box p={2}>{children}</Box>
+      </Box>
+    </>
   );
 };
 
