@@ -440,7 +440,7 @@ export type GetTaskByProjectQuery = { __typename?: 'Query', getTaskByProject: Ar
 export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllProjectsQuery = { __typename?: 'Query', getAllProjects: Array<{ __typename?: 'Project', id: string, startAt?: any | null | undefined, endAt?: any | null | undefined, name: string, client: string, description: string }> };
+export type GetAllProjectsQuery = { __typename?: 'Query', getAllProjects: Array<{ __typename?: 'Project', id: string, startAt?: any | null | undefined, endAt?: any | null | undefined, name: string, client: string, description: string, deleted: boolean, participants?: Array<{ __typename?: 'UserProject', user?: { __typename?: 'User', id: string, email: string, lastName: string, firstName: string, role: RoleSite } | null | undefined, projectRole?: { __typename?: 'ProjectRole', name: string } | null | undefined } | null | undefined> | null | undefined }> };
 
 export type GetProjectByIdQueryVariables = Exact<{
   projectId: Scalars['String'];
@@ -1045,6 +1045,19 @@ export const GetAllProjectsDocument = gql`
     name
     client
     description
+    deleted
+    participants {
+      user {
+        id
+        email
+        lastName
+        firstName
+        role
+      }
+      projectRole {
+        name
+      }
+    }
   }
 }
     `;

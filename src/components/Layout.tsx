@@ -1,5 +1,7 @@
+import React from "react";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import FolderIcon from '@mui/icons-material/Folder';
 import { Paper, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -8,11 +10,8 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Toolbar from '@mui/material/Toolbar';
 import { makeStyles } from '@mui/styles';
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const drawerWidth = 280;
@@ -29,6 +28,12 @@ const links = [
     icon: <PeopleAltIcon />,
     path: '/users',
     cleanPath: '/dashboard/users',
+  },
+  {
+    name: 'Projets',
+    icon: <FolderIcon />,
+    path: '/projects',
+    cleanPath: '/dashboard/projects',
   },
 ];
 
