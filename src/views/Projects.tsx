@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import { Project, useGetAllProjectsQuery } from '../generated/graphql';
-
+import { UserProject } from '../generated/graphql';
+import { CreateProjectMutation } from '../generated/graphql';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -18,6 +19,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Layout from '../components/Layout';
 import Page from '../components/Page';
+import { Chip, Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import NewProjectForm from '../components/NewProjectForm';
+import TablePagination from '@mui/material/TablePagination';
+interface Data {
+  email: string;
+  lastName: string;
+  firstName: string;
+  role: string;
+}
 
 function Row(props: { row: Project }) {
   const { row } = props;
@@ -58,7 +69,7 @@ function Row(props: { row: Project }) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Nom</TableCell>
-                    <TableCell>Prenom</TableCell>
+                    <TableCell>Prénom</TableCell>
                     <TableCell>Email</TableCell>
                     <TableCell>Role</TableCell>
                     <TableCell>Actions</TableCell>
@@ -88,35 +99,106 @@ function Row(props: { row: Project }) {
 }
 
 export default function Projects() {
+  const [open, setOpen] = React.useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rows, setRows] = React.useState<Array<Project>>([]);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  // useGetAllProjectsQuery({
+  //   onCompleted: ({ getAllProjects }) => {
+  //     setRows(getAllProjects[UserProject]);
+  //   },
+  // });
+
+  const handleClickOpenModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
   const [projects, setProjects] = React.useState<Array<any>>([]);
   const { loading } = useGetAllProjectsQuery({
     onCompleted: ({ getAllProjects }) => {
       setProjects(getAllProjects);
     },
   });
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
-    <Page sx={{ height: '100vh' }} title="Utilisateurs">
+    <Page sx={{ height: '100vh' }} title="Projet">
       <Layout>
-        <TableContainer component={Paper}>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell>Nom</TableCell>
-                <TableCell align="right">Client</TableCell>
-                <TableCell align="right">Description</TableCell>
-                <TableCell align="right">Date du début</TableCell>
-                <TableCell align="right">Date de fin</TableCell>
-                <TableCell align="right">Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {projects.map((row) => (
-                <Row key={row.name} row={row} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Box sx={{ width: '100%' }}>
+            <NewProjectForm
+              handleClickOpen={handleClickOpenModal}
+              handleClose={handleCloseModal}
+              open={open}
+            />
+
+            <Fab
+              variant="extended"
+              aria-label="add"
+              onClick={handleClickOpenModal}
+              sx={{
+                position: 'absolute',
+                bottom: '4%',
+                right: '2%',
+                bgcolor: 'primary.main',
+                color: 'white',
+                fontWeight: 'bold',
+                ':hover': {
+                  bgcolor: 'primary.dark',
+                },
+              }}
+            >
+              <AddIcon sx={{ mr: 1 }} />
+              Créer un projet
+            </Fab>
+
+            <Paper sx={{ width: '100%', mb: 2 }}>
+            
+            <TableContainer component={Paper}>
+              <Table aria-label="collapsible table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell>Nom</TableCell>
+                    <TableCell align="right">Client</TableCell>
+                    <TableCell align="right">Description</TableCell>
+                    <TableCell align="right">Date du début</TableCell>
+                    <TableCell align="right">Date de fin</TableCell>
+                    <TableCell align="right">Participants</TableCell>
+                    <TableCell align="right">Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {projects.map((row) => (
+                    <Row key={row.name} row={row} />
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Lignes par page"
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+            </Paper>
+        </Box>
       </Layout>
     </Page>
   );
