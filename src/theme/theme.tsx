@@ -12,6 +12,15 @@ const theme = createTheme({
     secondary: {
       main: '#FFEBEE',
     },
+    error: {
+      main: '#FFC3C3',
+    },
+    info: {
+      main: '#B3E5FC',
+    },
+    warning: {
+      main: '#FFF3CD',
+    },
     background: {
       paper: '#fcfcfc',
       default: '#f5f5f5',
