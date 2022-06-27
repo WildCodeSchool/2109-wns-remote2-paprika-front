@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { Project, useGetAllProjectsQuery } from '../generated/graphql';
-import { UserProject } from '../generated/graphql';
+import { Project, useCreateProjectMutation, useGetAllProjectsQuery , useUpdateProjectMutation , useDeleteProjectMutation} from '../generated/graphql';
 import { CreateProjectMutation } from '../generated/graphql';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -23,11 +22,15 @@ import { Chip, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import NewProjectForm from '../components/NewProjectForm';
 import TablePagination from '@mui/material/TablePagination';
-interface Data {
-  email: string;
-  lastName: string;
-  firstName: string;
-  role: string;
+export interface DataFormProject {
+  nameProject: string;
+  taskProject: string;
+  clientProject: string;
+  participantProject: string;
+}
+
+export interface ProjectProps {
+  project: Project;
 }
 
 function Row(props: { row: Project }) {
@@ -103,12 +106,31 @@ export default function Projects() {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Array<Project>>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [userInput, setuserInput] = React.useState<any>('');
+  const nameOfProject = document.getElementById('nameProject');
+  const taskOfProject = document.getElementById('taskProject');
+  const clientOfProject = document.getElementById('clientProject');
+  const userOfProject = document.getElementById('participantProject');
 
-  // useGetAllProjectsQuery({
-  //   onCompleted: ({ getAllProjects }) => {
-  //     setRows(getAllProjects[UserProject]);
-  //   },
-  // });
+  const dataOnFormProject = React.useRef<DataFormProject>({
+    nameProject: '',
+    taskProject: '',
+    clientProject: '',
+    participantProject: '',
+  });
+
+  const [createProject, { data, error }] = useCreateProjectMutation({
+    variables: {
+      projectInput: {
+        name: 'test',
+        description: 'description test',
+        client: 'client test',
+      }
+    },
+  });
+  console.log(data);
+  const [updateProject] = useUpdateProjectMutation();
+  const [deleteProject] = useDeleteProjectMutation();
 
   const handleClickOpenModal = () => {
     setOpen(true);
@@ -134,6 +156,7 @@ export default function Projects() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   return (
     <Page sx={{ height: '100vh' }} title="Projet">
       <Layout>
@@ -141,6 +164,7 @@ export default function Projects() {
             <NewProjectForm
               handleClickOpen={handleClickOpenModal}
               handleClose={handleCloseModal}
+              createNewProject={createProject}
               open={open}
             />
 

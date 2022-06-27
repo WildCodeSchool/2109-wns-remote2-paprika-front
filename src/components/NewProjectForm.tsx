@@ -6,12 +6,33 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Project } from '../generated/graphql';
 
 type NewProjectFormProps = {
     handleClickOpen: () => void;
     handleClose: () => void;
+    createNewProject: () => void;
     open: boolean;
 }
+const dataNewProject = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const name = e.currentTarget.name;
+    // const description = e.currentTarget.description.value;
+    // const startAt = e.currentTarget.startAt.value;
+    // const client = e.currentTarget.client.value;
+    // const participant = e.currentTarget.participant.value;
+    // const task = e.currentTarget.task.value;
+    // const project = {
+    //     name,
+    //     description,
+    //     startAt,
+    //     client,
+    //     participant,
+    //     task
+    // }
+    console.log(name);
+}
+
 
 const NewProjectForm = (props : NewProjectFormProps) => {
     return (
@@ -61,7 +82,7 @@ const NewProjectForm = (props : NewProjectFormProps) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={props.handleClose}>Annuler</Button>
-                    <Button onClick={props.handleClose}>Créer</Button>
+                    <Button type="submit" onSubmit={() => dataNewProject} onClick={props.createNewProject}>Créer</Button>
                 </DialogActions>
             </Dialog>
         </div>
