@@ -8,11 +8,10 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Toolbar from '@mui/material/Toolbar';
 import { makeStyles } from '@mui/styles';
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import React from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const drawerWidth = 280;
@@ -87,8 +86,15 @@ type Children = {
 };
 
 const Layout = ({ children }: Children) => {
+  const navigation = useNavigate();
   const location = useLocation();
   const classes = useStyles();
+
+  React.useEffect(() => {
+    const token = Cookies.get('connected');
+    console.log(token);
+    if (!!!token) navigation('/login');
+  }, []);
 
   return (
     <>
