@@ -3,12 +3,15 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { HelmetProvider } from 'react-helmet-async';
+import { SnackbarProvider } from 'notistack';
 
 const rootElement = document.getElementById('root');
 render(
   <HelmetProvider>
     <BrowserRouter>
-      <App />
+      <SnackbarProvider>
+        <App />
+      </SnackbarProvider>
     </BrowserRouter>
   </HelmetProvider>,
   rootElement
