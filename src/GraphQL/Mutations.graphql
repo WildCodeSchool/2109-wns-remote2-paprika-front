@@ -39,6 +39,10 @@ mutation login($userLoginInput: UserLoginInput!) {
   }
 }
 
+mutation Logout {
+  logout
+}
+
 mutation createTask($taskInput: TaskInput!) {
   createTask(taskInput: $taskInput) {
     id

@@ -8,12 +8,11 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Toolbar from '@mui/material/Toolbar';
 import { makeStyles } from '@mui/styles';
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useGetCurrentUserLazyQuery } from '../generated/graphql';
 
 const drawerWidth = 280;
 
@@ -87,8 +86,18 @@ type Children = {
 };
 
 const Layout = ({ children }: Children) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const classes = useStyles();
+  const [getCurrentUser] = useGetCurrentUserLazyQuery({
+    onCompleted: ({ getCurrentUser }) => {
+      if (!getCurrentUser) navigate('/login');
+    },
+  });
+
+  React.useEffect(() => {
+    getCurrentUser();
+  }, []);
 
   return (
     <>
