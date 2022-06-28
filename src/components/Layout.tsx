@@ -91,7 +91,6 @@ const Layout = ({ children }: Children) => {
   const classes = useStyles();
   const [getCurrentUser] = useGetCurrentUserLazyQuery({
     onCompleted: ({ getCurrentUser }) => {
-      console.log(getCurrentUser);
       if (!getCurrentUser) navigate('/login');
     },
   });

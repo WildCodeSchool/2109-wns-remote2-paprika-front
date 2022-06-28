@@ -32,7 +32,6 @@ export default function LoginForm() {
 
   const [getCurrentUser] = useGetCurrentUserLazyQuery({
     onCompleted: ({ getCurrentUser }) => {
-      console.log(getCurrentUser);
       if (getCurrentUser) navigate('/dashboard');
     },
   });
