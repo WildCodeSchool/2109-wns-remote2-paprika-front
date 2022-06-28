@@ -9,19 +9,20 @@ import {
   TextField,
 } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
-import Cookies from 'js-cookie';
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useLoginMutation } from '../generated/graphql';
+import {
+  useGetCurrentUserLazyQuery,
+  useLoginMutation,
+} from '../generated/graphql';
 import Iconify from './Iconify';
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const [login] = useLoginMutation({
-    onCompleted: (data) => {
-      Cookies.set('connected', 'true');
+    onCompleted: () => {
       navigate('/dashboard');
     },
     onError: (e) => {
@@ -29,6 +30,16 @@ export default function LoginForm() {
     },
   });
 
+  const [getCurrentUser] = useGetCurrentUserLazyQuery({
+    onCompleted: ({ getCurrentUser }) => {
+      console.log(getCurrentUser);
+      if (getCurrentUser) navigate('/dashboard');
+    },
+  });
+
+  React.useEffect(() => {
+    getCurrentUser();
+  }, []);
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email(`L'email doit être une adresse email valide`)

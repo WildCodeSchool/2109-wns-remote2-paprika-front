@@ -9,10 +9,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { makeStyles } from '@mui/styles';
-import Cookies from 'js-cookie';
 import React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useGetCurrentUserLazyQuery } from '../generated/graphql';
 
 const drawerWidth = 280;
 
@@ -86,14 +86,18 @@ type Children = {
 };
 
 const Layout = ({ children }: Children) => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const classes = useStyles();
+  const [getCurrentUser] = useGetCurrentUserLazyQuery({
+    onCompleted: ({ getCurrentUser }) => {
+      console.log(getCurrentUser);
+      if (!getCurrentUser) navigate('/login');
+    },
+  });
 
   React.useEffect(() => {
-    const token = Cookies.get('connected');
-    console.log(token);
-    if (!!!token) navigation('/login');
+    getCurrentUser();
   }, []);
 
   return (
