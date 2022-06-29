@@ -10,10 +10,11 @@ const theme = createTheme({
       contrastText: 'rgba(30,30,30,0.87)',
     },
     secondary: {
-      main: '#FFEBEE',
+      main: '#FFC3C3',
     },
     error: {
-      main: '#FFC3C3',
+      main: '#e74c3c',
+      light: '#FFC3C3',
     },
     info: {
       main: '#B3E5FC',

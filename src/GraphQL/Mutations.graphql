@@ -99,3 +99,30 @@ mutation createComment($commentInput: CommentInput!) {
 mutation AssignUsersToProject($projectId: String!, $usersRoles: [UsersRoles]) {
   assignUsersToProject(projectId: $projectId, usersRoles: $usersRoles)
 }
+
+mutation Register($userCreateInput: UserCreateInput!) {
+  register(userCreateInput: $userCreateInput) {
+    token
+    user {
+      id
+      email
+      lastName
+      firstName
+      role
+    }
+  }
+}
+
+mutation DeleteUser($userId: String!) {
+  deleteUser(userId: $userId)
+}
+
+mutation UpdateUser($updateUserInput: UpdateUserInput!) {
+  updateUser(updateUserInput: $updateUserInput) {
+    id
+    email
+    lastName
+    firstName
+    role
+  }
+}
