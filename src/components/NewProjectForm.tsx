@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Project, useCreateProjectMutation, useGetAllProjectsQuery , useUpdateProjectMutation , useDeleteProjectMutation} from '../generated/graphql';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,61 +7,64 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Project } from '../generated/graphql';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as yup from 'yup';
+import { create } from 'domain';
 
 type NewProjectFormProps = {
     handleClickOpen: () => void;
     handleClose: () => void;
-    createNewProject: () => void;
+    handleCreate: () => void;
     open: boolean;
 }
-const dataNewProject = (e: any) => {
-    e.preventDefault();
-    // props.createNewProject({
-    //     projectInput: {
-    //       name: 'test',
-    //       description: 'description test',
-    //       client: 'client test',
-    //     }
-    //   })
-    console.log(e + "log e")
-}
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
     nameProject: yup
       .string()
-      .required('Email is required'),
-    taskProject: yup
+      .required('Ce champs est requis'),
+    descriptionProject: yup
       .string()
       .required('Password is required'),
     clientProject: yup
       .string()
-      .required('Email is required'),
-    participantProject: yup
-      .string()
-      .required('Password is required'),
+      .required('Ce champs est requis'),
   });
   
   const NewProjectForm = (props: NewProjectFormProps) => {
+
+    const [createProject] = useCreateProjectMutation({
+        onCompleted: () => {
+          console.log('test');
+        },
+        onError: (e) => {
+          console.log(e);
+        },
+      });
+
+
     const formik = useFormik({
         initialValues: {
-            nameProject: '',
-            taskProject: '',
-            clientProject: '',
-            participantProject: '',
+            nameProject: 'test',
+            descriptionProject: 'test1',
+            clientProject: 'test2',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-            dataNewProject(props);
+        onSubmit: async (values) => {
+            console.log('values', values);
+            await createProject({
+                variables: {
+                    projectInput: {
+                        name: values.nameProject,
+                        client: values.clientProject,
+                        description: values.descriptionProject,
+                    },
+                },
+            });
         },
     });
-    const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
+    const { errors, values, handleSubmit, getFieldProps } =
     formik;
 
-    console.log(formik.values.clientProject + "log formik")
     return (
         <div>
             <FormikProvider value={formik}>
@@ -72,48 +76,33 @@ const validationSchema = yup.object({
                                 Pour créer un nouveau projet remplir ce formulaire
                             </DialogContent>
                             <TextField
-                                autoFocus
                                 margin="dense"
                                 id="nameProject"
                                 label="Nom du projet"
-                                type="text"
+                                type="nameProject"
                                 fullWidth
                                 variant="standard"
-                                value={formik.values.nameProject}
-                                onChange={formik.handleChange}
+                                {...getFieldProps('nameProject')}
                             />
                             <TextField
                                 autoFocus
                                 margin="dense"
                                 id="taskProject"
                                 label="Task du projet"
-                                type="text"
+                                type="taskProject"
                                 fullWidth
                                 variant="standard"
-                                value={formik.values.taskProject}
-                                onChange={formik.handleChange}
+                                {...getFieldProps('taskProject')}
                             />
                             <TextField
                                 autoFocus
                                 margin="dense"
                                 id="clientProject"
                                 label="Client du projet"
-                                type="text"
+                                type="clientProject"
                                 fullWidth
                                 variant="standard"
-                                value={formik.values.clientProject}
-                                onChange={formik.handleChange}
-                            />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="participantProject"
-                                label="Participants du projet"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                value={formik.values.participantProject}
-                                onChange={formik.handleChange}
+                                {...getFieldProps('clientProject')}
                             />
                         </DialogContent>
                         <DialogActions>

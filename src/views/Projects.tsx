@@ -119,18 +119,6 @@ export default function Projects() {
     participantProject: '',
   });
 
-  const [createProject, { data, error }] = useCreateProjectMutation({
-    variables: {
-      projectInput: {
-        name: 'test',
-        description: 'description test',
-        client: 'client test',
-      }
-    },
-  });
-  console.log(data);
-  const [updateProject] = useUpdateProjectMutation();
-  const [deleteProject] = useDeleteProjectMutation();
 
   const handleClickOpenModal = () => {
     setOpen(true);
@@ -157,6 +145,10 @@ export default function Projects() {
     setPage(0);
   };
 
+  const handleCreate = () => {
+    console.log("test")
+  }
+
   return (
     <Page sx={{ height: '100vh' }} title="Projet">
       <Layout>
@@ -164,7 +156,7 @@ export default function Projects() {
             <NewProjectForm
               handleClickOpen={handleClickOpenModal}
               handleClose={handleCloseModal}
-              createNewProject={createProject}
+              handleCreate={handleCreate}
               open={open}
             />
 
