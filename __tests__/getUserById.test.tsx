@@ -25,7 +25,22 @@ enum RoleSite {
 
 // Make a GraphQL schema with no resolvers
 const schema = makeExecutableSchema({ typeDefs: schemaString });
-
+const data = [
+  {
+    id: '1234567890',
+    email: 'test@email.fr',
+    lastName: 'Test',
+    firstName: 'testeur',
+    role: 'PO',
+  },
+  {
+    id: '4234867898',
+    email: 'email@email.fr',
+    lastName: 'Email',
+    firstName: 'testeur',
+    role: 'ADMIN',
+  },
+];
 // Create a new schema with mocks
 const schemaWithMocks = addMocksToSchema({
   schema,
@@ -33,17 +48,7 @@ const schemaWithMocks = addMocksToSchema({
     return {
       Query: {
         getUser: (_: any, { userId }: { userId: string }) => {
-          if (userId === '1234567890') {
-            return {
-              id: '1234567890',
-              email: 'test@email.fr',
-              lastName: 'Test',
-              firstName: 'testeur',
-              role: 'PO',
-            };
-          } else {
-            return null;
-          }
+          return data.find((user) => user.id == userId);
         },
       },
     };
@@ -62,22 +67,22 @@ const query = /* GraphQL */ `
   }
 `;
 describe('Get User By Id Test', () => {
-  it('return without error', async () => {
-    const {data} = await graphql({
+  it('return data', async () => {
+    const { data } = await graphql({
       schema: schemaWithMocks,
       source: query,
       variableValues: { userId: '1234567890' },
     });
-    expect(data?.getUser).toBeDefined;
+
+    expect(!!data?.getUser).toBeTruthy();
   });
 
   it('return no data', async () => {
-    const {data} = await graphql({
+    const { data } = await graphql({
       schema: schemaWithMocks,
       source: query,
       variableValues: { userId: '22224567890' },
-
     });
-    expect(data?.getUser).toBeNull;
+    expect(!!data?.getUser).toBeFalsy();
   });
 });
