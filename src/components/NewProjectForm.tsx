@@ -1,23 +1,20 @@
 import * as React from 'react';
-import { Project, useCreateProjectMutation, useGetAllProjectsQuery , useUpdateProjectMutation , useDeleteProjectMutation} from '../generated/graphql';
+import { useCreateProjectMutation } from '../generated/graphql';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { useSnackbar } from 'notistack';
 import * as yup from 'yup';
-import { create } from 'domain';
 
 type NewProjectFormProps = {
     handleClickOpen: () => void;
     handleClose: () => void;
     open: boolean;
 }
-
 
 // start componenent
 const NewProjectForm = (props: NewProjectFormProps) => {
@@ -26,7 +23,7 @@ const NewProjectForm = (props: NewProjectFormProps) => {
         refetchQueries: ['GetAllProjects']
       });
 
-    // const { enqueueSnackbar } = useSnackbar();
+    const {enqueueSnackbar} = useSnackbar();
     const validationSchema = yup.object().shape({
         nameProject: yup
         .string()
@@ -57,11 +54,11 @@ const NewProjectForm = (props: NewProjectFormProps) => {
                     },
                 },
             }).then(() => {
-                // enqueueSnackbar('Projet créé avec succès', { variant: 'success' });
+                enqueueSnackbar('Projet créé avec succès', { variant: 'success' });
                 formik.resetForm();
                 props.handleClose();
             }).catch((error) => {
-                // enqueueSnackbar(error.message, { variant: 'error' });
+                enqueueSnackbar(error.message, { variant: 'error' });
             })
         },
     });
@@ -90,15 +87,15 @@ const NewProjectForm = (props: NewProjectFormProps) => {
                                     {...getFieldProps('nameProject')}
                                 />
                                 <TextField
-                                    autoComplete='taskProject'
+                                    autoComplete='descriptionProject'
                                     autoFocus
                                     margin="dense"
-                                    id="taskProject"
-                                    label="Task du projet"
+                                    id="descriptionProject"
+                                    label="Description du projet"
                                     type="text"
                                     fullWidth
                                     variant="standard"
-                                    {...getFieldProps('taskProject')}
+                                    {...getFieldProps('descriptionProject')}
                                 />
                                 <TextField
                                     autoComplete='clientProject'

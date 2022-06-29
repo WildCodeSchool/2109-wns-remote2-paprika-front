@@ -72,11 +72,19 @@ function Row(props: { row: Project }) {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.client}</TableCell>
-        <TableCell align="right">{row.description}</TableCell>
-        <TableCell align="right">{row.startAt}</TableCell>
-        <TableCell align="right">{row.name}</TableCell>
-        <TableCell align="right">
+        <TableCell align="center">{row.client}</TableCell>
+        <TableCell align="center">{row.description}</TableCell>
+        <TableCell align="center">{row.startAt}</TableCell>
+        <TableCell align="center">{row.endAt}</TableCell>
+        <TableCell align="center">
+          {row.participants != undefined && row.participants.length > 1 
+            ? row.participants?.map((participant) => (
+              <Chip key={participant?.user?.id} label={participant?.user?.firstName} />
+            ))
+            : 'Pas de participants inscrits'
+          }
+          </TableCell>
+        <TableCell align="center">
           <DeleteIcon />
           <EditIcon />
         </TableCell>
@@ -137,14 +145,13 @@ export default function Projects() {
   // });
   
 
-// const { enqueueSnackbar } = useSnackbar();
+const { enqueueSnackbar } = useSnackbar();
 
   const dataOnFormProject = React.useRef<DataFormProject>({
     nameProject: '',
     clientProject: '',
     descriptionProject: '',
   });
-
 
   const handleClickOpenModal = () => {
     setOpen(true);
@@ -154,6 +161,7 @@ export default function Projects() {
     setOpen(false);
   };
   const [projects, setProjects] = React.useState<Array<any>>([]);
+
   const { loading } = useGetAllProjectsQuery({
     onCompleted: ({ getAllProjects }) => {
       setProjects(getAllProjects);
@@ -184,7 +192,6 @@ export default function Projects() {
               handleClose={handleCloseModal}
               open={open}
             />
-
             <Fab
               variant="extended"
               aria-label="add"
@@ -206,7 +213,6 @@ export default function Projects() {
             </Fab>
 
             <Paper sx={{ width: '100%', mb: 2 }}>
-            
             <TableContainer component={Paper}>
               <Table aria-label="collapsible table">
                 <TableHead>
