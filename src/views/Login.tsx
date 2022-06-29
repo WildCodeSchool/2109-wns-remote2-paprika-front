@@ -1,8 +1,13 @@
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Box, Stack, Typography, Paper } from '@mui/material';
-import Page from '../components/Page';
 import LoginForm from '../components/LoginForm';
+import Page from '../components/Page';
+import {
+  useGetCurrentUserLazyQuery,
+  useLoginMutation,
+} from '../generated/graphql';
 
 const LeftSide = styled.div`
   width: 40%;
@@ -25,6 +30,27 @@ const RightSide = styled(Box)`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [login] = useLoginMutation({
+    onCompleted: () => {
+      navigate('/dashboard');
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+
+  const [getCurrentUser] = useGetCurrentUserLazyQuery({
+    onCompleted: ({ getCurrentUser }) => {
+      if (getCurrentUser) navigate('/dashboard');
+    },
+  });
+  
+  React.useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   return (
     <Page sx={{ display: 'flex', height: '100vh' }} title="Se connecter">
       <LeftSide>
@@ -42,7 +68,7 @@ const Login = () => {
           </Typography>
         </Stack>
 
-        <LoginForm />
+        <LoginForm login={login} />
       </RightSide>
     </Page>
   );
