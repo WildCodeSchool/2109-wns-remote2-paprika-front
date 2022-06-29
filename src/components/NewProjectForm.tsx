@@ -8,45 +8,42 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik, Form, FormikProvider } from 'formik';
+import { useSnackbar } from 'notistack';
 import * as yup from 'yup';
 import { create } from 'domain';
 
 type NewProjectFormProps = {
     handleClickOpen: () => void;
     handleClose: () => void;
-    handleCreate: () => void;
     open: boolean;
 }
 
-const validationSchema = yup.object().shape({
-    nameProject: yup
-      .string()
-      .required('Ce champs est requis'),
-    descriptionProject: yup
-      .string()
-      .required('Password is required'),
-    clientProject: yup
-      .string()
-      .required('Ce champs est requis'),
-  });
-  
-  const NewProjectForm = (props: NewProjectFormProps) => {
+
+// start componenent
+const NewProjectForm = (props: NewProjectFormProps) => {
 
     const [createProject] = useCreateProjectMutation({
-        onCompleted: () => {
-          console.log('test');
-        },
-        onError: (e) => {
-          console.log(e);
-        },
+        refetchQueries: ['GetAllProjects']
       });
 
-
+    // const { enqueueSnackbar } = useSnackbar();
+    const validationSchema = yup.object().shape({
+        nameProject: yup
+        .string()
+        .required('Ce champs est requis'),
+        descriptionProject: yup
+        .string()
+        .required('Password is required'),
+        clientProject: yup
+        .string()
+        .required('Ce champs est requis'),
+    });
+  
     const formik = useFormik({
         initialValues: {
-            nameProject: 'test',
-            descriptionProject: 'test1',
-            clientProject: 'test2',
+            nameProject: 'Nom du projet',
+            descriptionProject: 'Description du projet',
+            clientProject: 'Client du projet',
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
@@ -59,59 +56,69 @@ const validationSchema = yup.object().shape({
                         description: values.descriptionProject,
                     },
                 },
-            });
+            }).then(() => {
+                // enqueueSnackbar('Projet créé avec succès', { variant: 'success' });
+                formik.resetForm();
+                props.handleClose();
+            }).catch((error) => {
+                // enqueueSnackbar(error.message, { variant: 'error' });
+            })
         },
     });
-    const { errors, values, handleSubmit, getFieldProps } =
-    formik;
+
+
+    const { errors, values, handleSubmit, getFieldProps } = formik;
 
     return (
         <div>
-            <FormikProvider value={formik}>
-                <Form onSubmit={formik.handleSubmit}>
-                <Dialog open={props.open} onClose={props.handleClose}>
-                    <DialogTitle>Créer un nouveau projet</DialogTitle>
+            <Dialog open={props.open} onClose={props.handleClose}>
+                <DialogTitle>Créer un nouveau projet</DialogTitle>
+                    <DialogContent>
                         <DialogContent>
-                            <DialogContent>
-                                Pour créer un nouveau projet remplir ce formulaire
-                            </DialogContent>
-                            <TextField
-                                margin="dense"
-                                id="nameProject"
-                                label="Nom du projet"
-                                type="nameProject"
-                                fullWidth
-                                variant="standard"
-                                {...getFieldProps('nameProject')}
-                            />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="taskProject"
-                                label="Task du projet"
-                                type="taskProject"
-                                fullWidth
-                                variant="standard"
-                                {...getFieldProps('taskProject')}
-                            />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="clientProject"
-                                label="Client du projet"
-                                type="clientProject"
-                                fullWidth
-                                variant="standard"
-                                {...getFieldProps('clientProject')}
-                            />
+                            Pour créer un nouveau projet remplir ce formulaire
                         </DialogContent>
-                        <DialogActions>
-                            <Button onClick={props.handleClose}>Annuler</Button>
-                            <Button type="submit" onClick={props.handleClose}>Créer</Button>
-                        </DialogActions>
-                    </Dialog>
-                </Form>
-            </FormikProvider>
+                        <FormikProvider value={formik}>
+                            <Form onSubmit={handleSubmit}>
+                                <TextField
+                                    autoComplete='nameProject'
+                                    margin="dense"
+                                    id="nameProject"
+                                    label="Nom du projet"
+                                    type="text"
+                                    fullWidth
+                                    variant="standard"
+                                    {...getFieldProps('nameProject')}
+                                />
+                                <TextField
+                                    autoComplete='taskProject'
+                                    autoFocus
+                                    margin="dense"
+                                    id="taskProject"
+                                    label="Task du projet"
+                                    type="text"
+                                    fullWidth
+                                    variant="standard"
+                                    {...getFieldProps('taskProject')}
+                                />
+                                <TextField
+                                    autoComplete='clientProject'
+                                    autoFocus
+                                    margin="dense"
+                                    id="clientProject"
+                                    label="Client du projet"
+                                    type="text"
+                                    fullWidth
+                                    variant="standard"
+                                    {...getFieldProps('clientProject')}
+                                />
+                            <DialogActions>
+                                <Button onClick={props.handleClose}>Annuler</Button>
+                                <Button type="submit" onClick={props.handleClose}>Créer</Button>
+                            </DialogActions>
+                        </Form>
+                    </FormikProvider>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
