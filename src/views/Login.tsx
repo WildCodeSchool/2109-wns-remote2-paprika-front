@@ -41,14 +41,11 @@ const Login = () => {
     },
   });
 
-  const [getCurrentUser] = useGetCurrentUserLazyQuery({
-    onCompleted: ({ getCurrentUser }) => {
-      if (getCurrentUser) navigate('/dashboard');
-    },
-  });
+  const [getCurrentUser, { data }] = useGetCurrentUserLazyQuery();
 
   React.useEffect(() => {
     getCurrentUser();
+    if (data?.getCurrentUser) navigate('/dashboard');
   }, []);
 
   return (
