@@ -1,5 +1,7 @@
+import React from "react";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import FolderIcon from '@mui/icons-material/Folder';
 import { Paper, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -9,7 +11,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useGetCurrentUserLazyQuery } from '../generated/graphql';
@@ -28,6 +29,12 @@ const links = [
     icon: <PeopleAltIcon />,
     path: '/users',
     cleanPath: '/dashboard/users',
+  },
+  {
+    name: 'Projets',
+    icon: <FolderIcon />,
+    path: '/projects',
+    cleanPath: '/dashboard/projects',
   },
 ];
 

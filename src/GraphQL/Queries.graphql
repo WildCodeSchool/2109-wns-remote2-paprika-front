@@ -94,6 +94,19 @@ query GetAllProjects {
     name
     client
     description
+    deleted
+    participants {
+      user {
+        id
+        email
+        lastName
+        firstName
+        role
+      }
+      projectRole {
+        name
+      }
+    }
   }
 }
 
