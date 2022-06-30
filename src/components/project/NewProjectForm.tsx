@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { useCreateProjectMutation } from '../generated/graphql';
+import { useCreateProjectMutation } from '../../generated/graphql';
+import { useFormik, Form, FormikProvider } from 'formik';
+import { useSnackbar } from 'notistack';
+import * as yup from 'yup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useFormik, Form, FormikProvider } from 'formik';
-import { useSnackbar } from 'notistack';
-import * as yup from 'yup';
 
 type NewProjectFormProps = {
     handleClickOpen: () => void;
@@ -44,7 +44,6 @@ const NewProjectForm = (props: NewProjectFormProps) => {
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
-            console.log('values', values);
             await createProject({
                 variables: {
                     projectInput: {
@@ -62,8 +61,6 @@ const NewProjectForm = (props: NewProjectFormProps) => {
             })
         },
     });
-
-
     const { errors, values, handleSubmit, getFieldProps } = formik;
 
     return (

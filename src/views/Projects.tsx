@@ -1,6 +1,17 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { Project, useCreateProjectMutation, useGetAllProjectsQuery , useUpdateProjectMutation , useDeleteProjectMutation} from '../generated/graphql';
+import { User ,
+  Project,
+  useCreateProjectMutation,
+  useGetAllProjectsQuery ,
+  useUpdateProjectMutation ,
+  useDeleteProjectMutation}
+  from '../generated/graphql';
+import Layout from '../components/Layout';
+import Page from '../components/Page';
+import NewProjectForm from '../components/project/NewProjectForm';
+import { useSnackbar } from 'notistack';
+import EditProjectForm from '../components/project/editProjectForm';
 import { getComparator, Order, stableSort } from '../utils/tableUtils';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -16,13 +27,9 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Layout from '../components/Layout';
-import Page from '../components/Page';
-import { Chip, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import NewProjectForm from '../components/NewProjectForm';
+import { Chip, Fab } from '@mui/material';
 import TablePagination from '@mui/material/TablePagination';
-import { useSnackbar } from 'notistack';
 export interface DataFormProject {
   nameProject: string;
   descriptionProject: string;
@@ -56,6 +63,54 @@ const headCells: readonly HeadCell[] = [
 function Row(props: { row: Project }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const [ openUpdate , setOpenUpdate ] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const [deleteProject] = useDeleteProjectMutation({
+    refetchQueries: ['GetAllProjects'],
+  });
+
+  const [updateProject] = useUpdateProjectMutation({
+    refetchQueries: ['GetAllProjects'],
+  });
+
+  const handleDeleteProject = () => {
+    deleteProject({
+      variables: {
+        projectId: props.row.id,
+      },
+    }).then(() => {
+      enqueueSnackbar(
+        `Le projet ${props.row.name} à bien été supprimé !`,
+        { variant: 'success' }
+      );
+    });
+  };
+
+  const handleUpdateProject = async () => {
+    setOpen(true);
+
+    await updateProject({
+      variables: {
+        projectId: props.row.id,
+        updateProjectInput: {
+          name: props.row.name,
+          client: props.row.client,
+          description: props.row.description,
+        },
+      },
+    })
+  }
+  
+  const handleOpenModifyModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModifyModal = () => {
+    setOpen(false);
+  };
+
+  const date = new Date(row.startAt);
+  const newDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
 
   return (
     <React.Fragment>
@@ -74,8 +129,8 @@ function Row(props: { row: Project }) {
         </TableCell>
         <TableCell align="center">{row.client}</TableCell>
         <TableCell align="center">{row.description}</TableCell>
-        <TableCell align="center">{row.startAt}</TableCell>
-        <TableCell align="center">{row.endAt}</TableCell>
+        <TableCell align="center">{newDate}</TableCell>
+        <TableCell align="center">{newDate}</TableCell>
         <TableCell align="center">
           {row.participants != undefined && row.participants.length > 1 
             ? row.participants?.map((participant) => (
@@ -85,10 +140,20 @@ function Row(props: { row: Project }) {
           }
           </TableCell>
         <TableCell align="center">
-          <DeleteIcon />
-          <EditIcon />
+          <IconButton onClick={handleDeleteProject}>
+            <DeleteIcon />
+          </IconButton>
+          <IconButton onClick={handleUpdateProject}>
+            <EditIcon />
+          </IconButton>
         </TableCell>
       </TableRow>
+      <EditProjectForm
+        handleClickOpen={handleOpenModifyModal}
+        handleClose={handleCloseModifyModal}
+        open={open}
+        data={props.row}
+      />
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -102,7 +167,7 @@ function Row(props: { row: Project }) {
                     <TableCell>Nom</TableCell>
                     <TableCell>Prénom</TableCell>
                     <TableCell>Email</TableCell>
-                    <TableCell>Role</TableCell>
+                    <TableCell>Rôle</TableCell>
                     <TableCell>Actions</TableCell>
                   </TableRow>
                 </TableHead>
@@ -134,19 +199,14 @@ export default function Projects() {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Array<Project>>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [openModifyModal, setOpenModifyModal] = React.useState(false);
+  const [deleteProject] = useDeleteProjectMutation({
+    refetchQueries: ['GetAllProjects'],
+  });
   const [createProject] = useCreateProjectMutation({
     refetchQueries: ['GetAllProjects']
   });
-  // useGetAllProjectsQuery({
-  //   onCompleted: ({ getAllProjects }) => {
-  //     setRows(getAllProjects);
-  //   }
-  // });
-  
-
-const { enqueueSnackbar } = useSnackbar();
-
+  const { enqueueSnackbar } = useSnackbar();
   const dataOnFormProject = React.useRef<DataFormProject>({
     nameProject: '',
     clientProject: '',
@@ -156,12 +216,16 @@ const { enqueueSnackbar } = useSnackbar();
   const handleClickOpenModal = () => {
     setOpen(true);
   };
-
   const handleCloseModal = () => {
     setOpen(false);
   };
+  const handleOpenModifyModal = () => {
+    setOpenModifyModal(true);
+  };
+  const handleCloseModifyModal = () => {
+    setOpenModifyModal(false);
+  };
   const [projects, setProjects] = React.useState<Array<any>>([]);
-
   const { loading } = useGetAllProjectsQuery({
     onCompleted: ({ getAllProjects }) => {
       setProjects(getAllProjects);
@@ -178,10 +242,6 @@ const { enqueueSnackbar } = useSnackbar();
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const handleCreate = () => {
-    console.log("test")
-  }
 
   return (
     <Page sx={{ height: '100vh' }} title="Projet">
@@ -228,8 +288,8 @@ const { enqueueSnackbar } = useSnackbar();
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {projects.map((row) => (
-                    <Row key={row.name} row={row} />
+                  {projects.map((row, index) => (
+                    <Row key={index} row={row} />
                   ))}
                 </TableBody>
               </Table>
