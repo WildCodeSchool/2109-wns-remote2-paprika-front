@@ -96,14 +96,12 @@ const Layout = ({ children }: Children) => {
   const navigate = useNavigate();
   const location = useLocation();
   const classes = useStyles();
-  const [getCurrentUser] = useGetCurrentUserLazyQuery({
-    onCompleted: ({ getCurrentUser }) => {
-      if (!getCurrentUser) navigate('/login');
-    },
-  });
+
+  const [getCurrentUser, { data }] = useGetCurrentUserLazyQuery();
 
   React.useEffect(() => {
     getCurrentUser();
+    if (data?.getCurrentUser) navigate('/dashboard');
   }, []);
 
   return (
