@@ -23,6 +23,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { visuallyHidden } from '@mui/utils';
 import { getComparator, Order, stableSort } from '../utils/tableUtils';
+import { Chip, Fab } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import NewUserForm from '../components/NewUserForm';
 
 interface Data {
   email: string;
@@ -32,36 +36,26 @@ interface Data {
 }
 
 interface HeadCell {
-  disablePadding: boolean;
   id: keyof Data;
   label: string;
-  numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
   {
     id: 'email',
-    numeric: false,
-    disablePadding: false,
-    label: 'email',
+    label: 'Email',
   },
   {
     id: 'firstName',
-    numeric: false,
-    disablePadding: true,
-    label: 'prénom',
+    label: 'Prénom',
   },
   {
     id: 'lastName',
-    numeric: false,
-    disablePadding: false,
-    label: 'nom',
+    label: 'Nom',
   },
   {
     id: 'role',
-    numeric: true,
-    disablePadding: false,
-    label: 'role',
+    label: 'Rôle',
   },
 ];
 
@@ -108,8 +102,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align="left"
+            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -159,24 +153,32 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
           variant="subtitle1"
           component="div"
         >
-          {numSelected} selected
+          {numSelected} sélectionné(s)
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
+          sx={{ flex: '1 1 100%', fontWeight: 'bold' }}
+          variant="h5"
           id="tableTitle"
           component="div"
+          color="primary"
         >
           Utilisateurs
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <Box sx={{ display: 'flex' }}>
+          <Tooltip title="Supprimer">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Editer">
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
       ) : null}
     </Toolbar>
   );
@@ -188,7 +190,7 @@ export default function Users() {
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Array<User>>([]);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   useGetAllUsersQuery({
     onCompleted: ({ getAllUsers }) => {
       setRows(getAllUsers);
@@ -250,17 +252,53 @@ export default function Users() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpenModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
   return (
     <Page sx={{ height: '100vh' }} title="Utilisateurs">
       <Layout>
         <Box sx={{ width: '100%' }}>
+          <NewUserForm
+            handleClickOpen={handleClickOpenModal}
+            handleClose={handleCloseModal}
+            open={open}
+          />
+
+          <Fab
+            variant="extended"
+            aria-label="add"
+            onClick={handleClickOpenModal}
+            sx={{
+              position: 'absolute',
+              bottom: '4%',
+              right: '2%',
+              bgcolor: 'primary.main',
+              color: 'white',
+              fontWeight: 'bold',
+              ':hover': {
+                bgcolor: 'primary.dark',
+              },
+            }}
+          >
+            <AddIcon sx={{ mr: 1 }} />
+            Créer un utilisateur
+          </Fab>
+
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
               <Table
                 sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
-                size={'small'}
+                size="medium"
               >
                 <EnhancedTableHead
                   numSelected={selected.length}
@@ -282,12 +320,15 @@ export default function Users() {
                       return (
                         <TableRow
                           hover
-                          onClick={(event) => handleClick(event, row.email)}
+                          onClick={(event: React.MouseEvent<unknown>) =>
+                            handleClick(event, row.email)
+                          }
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
                           key={row.email}
                           selected={isItemSelected}
+                          sx={{ cursor: 'pointer' }}
                         >
                           <TableCell padding="checkbox">
                             <Checkbox
@@ -302,13 +343,26 @@ export default function Users() {
                             component="th"
                             id={labelId}
                             scope="row"
-                            padding="none"
+                            padding="normal"
                           >
                             {row.email}
                           </TableCell>
-                          <TableCell align="right">{row.firstName}</TableCell>
-                          <TableCell align="right">{row.lastName}</TableCell>
-                          <TableCell align="right">{row.role}</TableCell>
+                          <TableCell align="left">{row.firstName}</TableCell>
+                          <TableCell align="left">{row.lastName}</TableCell>
+                          <TableCell align="left">
+                            <Chip
+                              color={
+                                row.role === 'ADMIN'
+                                  ? 'error'
+                                  : row.role === 'PO'
+                                  ? 'info'
+                                  : 'warning'
+                              }
+                              size="small"
+                              sx={{ fontWeight: 700, fontSize: 11 }}
+                              label={row.role}
+                            />
+                          </TableCell>
                         </TableRow>
                       );
                     })}
