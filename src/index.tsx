@@ -10,7 +10,7 @@ render(
   <HelmetProvider>
     <BrowserRouter>
       <SnackbarProvider>
-      <App />
+        <App />
       </SnackbarProvider>
     </BrowserRouter>
   </HelmetProvider>,
