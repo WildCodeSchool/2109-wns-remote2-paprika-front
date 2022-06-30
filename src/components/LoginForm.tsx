@@ -10,35 +10,13 @@ import {
 } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
 import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
-import {
-  useGetCurrentUserLazyQuery,
-  useLoginMutation,
-} from '../generated/graphql';
 import Iconify from './Iconify';
 
-export default function LoginForm() {
-  const navigate = useNavigate();
+export default function LoginForm({ login }: { login: Function }) {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [login] = useLoginMutation({
-    onCompleted: () => {
-      navigate('/dashboard');
-    },
-    onError: (e) => {
-      console.log(e);
-    },
-  });
 
-  const [getCurrentUser] = useGetCurrentUserLazyQuery({
-    onCompleted: ({ getCurrentUser }) => {
-      if (getCurrentUser) navigate('/dashboard');
-    },
-  });
-
-  React.useEffect(() => {
-    getCurrentUser();
-  }, []);
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email(`L'email doit être une adresse email valide`)
